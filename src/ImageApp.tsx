@@ -30,29 +30,31 @@ const ImageCombiner: React.FC = () => {
   const handleCombineImages = () => {
     const canvas = document.createElement("canvas");
     const context = canvas.getContext("2d");
-
+  
     // Calculate the size of the combined image based on the combineCount
     const size = Math.floor(Math.sqrt(combineCount)) * 300;
-
+  
     canvas.width = size;
     canvas.height = size;
-
+  
     // Draw the images onto the canvas
     for (let i = 0; i < combineCount && i < imageFiles.length; i++) {
       const image = new Image();
       image.src = imageFiles[i].url;
-
+  
       const x = (i % Math.floor(Math.sqrt(combineCount))) * (size / Math.floor(Math.sqrt(combineCount)));
       const y = Math.floor(i / Math.floor(Math.sqrt(combineCount))) * (size / Math.floor(Math.sqrt(combineCount)));
-
+  
       image.onload = () => {
         context?.drawImage(image, x, y, size / Math.floor(Math.sqrt(combineCount)), size / Math.floor(Math.sqrt(combineCount)));
-        if (i === combineCount - 1) {
+        if (i === combineCount - 1 && i < imageFiles.length - 1) {
+          setCombinedImageUrl(canvas.toDataURL());
+        } else if (i === imageFiles.length - 1) {
           setCombinedImageUrl(canvas.toDataURL());
         }
       };
     }
-  };
+  };  
 
   return (
     <div>
