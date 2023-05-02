@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import "./TextApp.css";
 
 const App: React.FC = () => {
@@ -14,9 +16,10 @@ const App: React.FC = () => {
         }}
         value={input}
       />
-
+<DndProvider backend={HTML5Backend}>
       <h3>Output</h3>
       <div className="outBox" dangerouslySetInnerHTML={{__html: input}} ></div>
+      </DndProvider>
     </div>
   );
 };
