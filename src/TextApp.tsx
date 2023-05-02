@@ -16,10 +16,9 @@ const App: React.FC = () => {
         }}
         value={input}
       />
-<DndProvider backend={HTML5Backend}>
+
       <h3>Output</h3>
       <div className="outBox" dangerouslySetInnerHTML={{__html: input}} ></div>
-      </DndProvider>
     </div>
   );
 };
