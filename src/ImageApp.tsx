@@ -4,7 +4,7 @@ interface ImageFile {
   url: string;
   file: File;
 }
-//画像処理2
+
 const ImageCombiner: React.FC = () => {
   const [imageFiles, setImageFiles] = useState<ImageFile[]>([]);
   const [combineCount, setCombineCount] = useState(2);
@@ -30,31 +30,34 @@ const ImageCombiner: React.FC = () => {
   const handleCombineImages = () => {
     const canvas = document.createElement("canvas");
     const context = canvas.getContext("2d");
-  
+
     // Calculate the size of the combined image based on the combineCount
     const size = Math.floor(Math.sqrt(combineCount)) * 300;
-  
+
     canvas.width = size;
     canvas.height = size;
-  
-    // Draw the images onto the canvas
-    for (let i = 0; i < combineCount && i < imageFiles.length; i++) {
+
+    const images = imageFiles.slice(0, combineCount).map((imageFile) => {
       const image = new Image();
-      image.src = imageFiles[i].url;
-  
+      image.src = imageFile.url;
+      return image;
+    }) as HTMLImageElement[];
+
+    let loadedCount = 0;
+    // Draw the images onto the canvas
+    images.forEach((image, i) => {
       const x = (i % Math.floor(Math.sqrt(combineCount))) * (size / Math.floor(Math.sqrt(combineCount)));
       const y = Math.floor(i / Math.floor(Math.sqrt(combineCount))) * (size / Math.floor(Math.sqrt(combineCount)));
-  
+
       image.onload = () => {
+        loadedCount++;
         context?.drawImage(image, x, y, size / Math.floor(Math.sqrt(combineCount)), size / Math.floor(Math.sqrt(combineCount)));
-        if (i === combineCount - 1 && i < imageFiles.length - 1) {
-          setCombinedImageUrl(canvas.toDataURL());
-        } else if (i === imageFiles.length - 1) {
+        if (loadedCount === combineCount) {
           setCombinedImageUrl(canvas.toDataURL());
         }
       };
-    }
-  };  
+    });
+  };
 
   return (
     <div>
@@ -71,6 +74,7 @@ const ImageCombiner: React.FC = () => {
       <button onClick={handleCombineImages}>Combine Images</button>
       {combinedImageUrl && <img src={combinedImageUrl} alt="Combined" />}
     </div>
+
   );
 };
 
