@@ -4,7 +4,7 @@ interface ImageFile {
   url: string;
   file: File;
 }
-//画像処理
+//画像処理2
 const ImageCombiner: React.FC = () => {
   const [imageFiles, setImageFiles] = useState<ImageFile[]>([]);
   const [combineCount, setCombineCount] = useState(2);
