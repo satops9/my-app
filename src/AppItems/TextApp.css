@@ -1,0 +1,116 @@
+ body {
+    margin: 10%;
+ }
+
+ /* ここからheader */
+
+  .Header {
+   position: fixed;
+   display: flex;
+   z-index: 999;
+   top: 0; left: 0;
+   width: 100%; height: 60px;
+   background-color: cadetblue;
+   color: white;
+   box-sizing:content-box;
+  }
+
+  .Header .title{
+   display: inline;
+   font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+   color: black;
+   margin-right: 16px;
+  }
+
+ ul {
+   list-style: none;
+  }
+
+  li {
+   display:inline-flex;
+   margin-left: 16px;
+   text-decoration: none;
+   border:1px solid rgb(44, 90, 92);
+   border-radius: 8px;
+   box-shadow:0 0 10px rgb(44, 90, 92);
+   padding: 5px;
+   background-color: cadetblue;
+   color: white;
+   text-align: center;
+  }
+
+  /* ここまでheader */
+
+  /* ここからmain */
+
+  .main { /* 全体の設定 */
+   margin-Top: 30px;
+   padding: 1em;
+  }
+
+  .MainCont { /* boxを下部に固定するためのメインコンテンツ */
+   position: relative;
+   display: flex;
+   box-sizing: border-box;
+  }
+
+  footer {
+   margin-top: auto;
+   width: 100%;
+   padding: 0 10px;
+   background-color: cadetblue;
+   color: white;
+  }
+
+ .box { /* 入力UI */
+   width:95%; height:300px; overflow-y: scroll;
+   margin:10px; padding: auto; border:1px solid black;
+ }
+
+ .outBox { /* 出力UI */
+    width:100%; height:400px; overflow-y: scroll;
+    margin: auto; padding: auto; border:1px solid lightgray;
+ }
+
+  /* ここまでmain */
+
+  /* ここからスマートフォンの設定 */
+ 
+  @media (prefers-reduced-motion: no-preference) {
+   body {
+       margin: auto;
+   }
+
+   .Header {
+      position: fixed;
+      display: flex;
+      z-index: 999;
+      top: 0; left: 0;
+      width: 100%; height: 60px;
+      background-color: cadetblue;
+      color: white;
+      box-sizing:content-box;
+     }
+
+   .Header .title{
+      display: inline;
+      padding: 0 15px;
+      font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      color: black;
+     }
+
+     li {
+      display:inline-flex;
+      margin-left: 8px;
+     }
+
+     .box { /* 入力UI */
+      width:95%; height:250px; overflow-y: scroll;
+      margin:10px; padding: auto; border:1px solid black;
+    }
+   
+    .outBox { /* 出力UI */
+       width:100%; height:400px; overflow-y: scroll;
+       margin: auto; padding: auto; border:1px solid lightgray;
+    }
+ }

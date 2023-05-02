@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 import "./TextApp.css";
 
 const App: React.FC = () => {
@@ -8,6 +6,13 @@ const App: React.FC = () => {
 
   return (
     <div>
+    <div className="main">
+      <h3>Output</h3>
+      <div className="outBox" dangerouslySetInnerHTML={{__html: input}} ></div>
+      </div>
+      
+    <div className="MainCont">
+      <footer>
       <h3>Input HTML</h3>
       <textarea className="box"
         id="html-content"
@@ -16,9 +21,8 @@ const App: React.FC = () => {
         }}
         value={input}
       />
-
-      <h3>Output</h3>
-      <div className="outBox" dangerouslySetInnerHTML={{__html: input}} ></div>
+      </footer>
+    </div>
     </div>
   );
 };
