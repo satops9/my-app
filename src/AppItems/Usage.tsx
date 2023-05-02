@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import "./TextApp.css";
 
 const App: React.FC = () => {
-  const [input, updateInput] = useState("<h1>Hello, world!</h1>\n<p>This is some HTML.</p>");
-
   return (
     <div>
     <div className="main">
