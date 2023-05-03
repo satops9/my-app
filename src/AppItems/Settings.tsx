@@ -4,6 +4,7 @@ import { initialOptions } from "./TextOption";
 import Cookies from "js-cookie";
 
 type Option = {
+  id: string;
   index: number;
   label: string;
   value: string;
@@ -47,14 +48,14 @@ const App: React.FC = () => {
               <input type="text"
                 defaultValue={option.label}
                 data-label={option.index}
-                onChange={(e) => handleOptionValueChange2(option.index, e)}
+                onBlur={(e) => handleOptionValueChange2(option.index, e)}
               />
               <br></br>
               <textarea
                 className="aft"
                 defaultValue={option.value}
                 data-label={option.index}
-                onChange={(e) => handleOptionValueChange(option.index, e)}
+                onBlur={(e) => handleOptionValueChange(option.index, e)}
               />
             </div>
           ))}

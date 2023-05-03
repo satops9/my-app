@@ -17,7 +17,7 @@ const App: React.FC<AppProps> = ({ selectedMenu }) => {
         return <Usage />;
       case 'settings':
         return <Settings />;
-      default:
+        default:
         return <Top />;
     }
   };
