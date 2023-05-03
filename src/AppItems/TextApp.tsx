@@ -14,13 +14,6 @@ interface ModalProps {
   children: React.ReactNode;
 }
 
-interface UseModalReturnType {
-  Modal: React.FC<ModalProps>;
-  Modal2: React.FC<ModalProps>;
-  toggleModal: () => void;
-  toggleModal2: () => void;
-}
-
 type FuncKeySetProps = {
   optionItem: Option[];
   SetOptionItem: React.Dispatch<React.SetStateAction<Option[]>>; // 追加する
@@ -131,10 +124,12 @@ const App: React.FC = () => {
                     <Modal2>
                         <div id="overlay">
                           <div className="main">
-                            <h3>キー設定</h3>
-                            制作画面で使用できる簡易キーを設定できます。<br></br>
-                            ※注意※ 改行を行いたい場合、「\n」を挟んでから設定してください。
                             <div id="content">
+                            <div id="mini_cnt">
+                              <h3>キー設定</h3>
+                              制作画面で使用できる簡易キーを設定できます。<br></br>
+                              ※注意※ 改行を行いたい場合、「\n」を挟んでから設定してください。
+                              </div>
                           <FuncKeySet
                             optionItem={optionItem}
                             SetOptionItem={setOptionItem}

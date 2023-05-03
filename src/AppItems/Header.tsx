@@ -14,6 +14,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuSelected }) => {
           <li onClick={() => onMenuSelected('usage')}>使い方</li>
           <li onClick={() => onMenuSelected('settings')}>設定</li>
           <li onClick={() => onMenuSelected('top')}>TOP</li>
+          <li onClick={() => onMenuSelected('chat')}>TOP</li>
         </ul>
         </header>
       );

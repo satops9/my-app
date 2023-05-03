@@ -48,6 +48,11 @@
    padding: 10px;
   }
 
+  .mod_main{
+    margin-Top: 60px;
+    padding: 10px;
+  }
+
   .textBox {
    background-color: whitesmoke;
    margin: 10px;
@@ -127,7 +132,7 @@
      display: flex;
      align-items: center;
      justify-content: center;
-   
+     overflow: auto;
    }
 
    #content{
@@ -135,6 +140,11 @@
       width:90%;
       padding: 1em;
       background:#fff;
+    }
+
+    #mini_cnt {
+      padding: 5px;
+      background:cadetblue;
     }
 
   /* ここからスマートフォンの設定 */
