@@ -1,24 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import 'react-tabs/style/react-tabs.css';
 import "./TextApp.css";
 import "./ChatApp.css";
 import Cookies from "js-cookie";
 import { ColorResult, SketchPicker } from 'react-color';
   
-  type FuncKeySetProps = {
+  type C_FuncKeySetProps = {
     optionColors: string;
     optionNames: string;
-    optionIds   : string;
+    optionIds   : boolean;
     SetOptionColor: React.Dispatch<React.SetStateAction<string>>;
     SetOptionNames: React.Dispatch<React.SetStateAction<string>>;
-    SetOptionId   : React.Dispatch<React.SetStateAction<string>>;
+    SetOptionId   : React.Dispatch<React.SetStateAction<boolean>>;
   }
 
-  export const C_FuncKeySet: React.FC<FuncKeySetProps> = ({ 
+  export const C_FuncKeySet: React.FC<C_FuncKeySetProps> = ({ 
     optionColors, optionNames, optionIds, SetOptionColor, SetOptionNames, SetOptionId }) => {
     const [optionColor, setOptionColor]  = useState<string>(optionColors);
     const [optionName , setOptionNames]  = useState<string>(optionNames);
-    const [optionId   , setOptionId]     = useState<string>(optionIds);
+    const [optionId   , setOptionId]     = useState<boolean>(optionIds);
     
     // funtion key option value setup
     const handleOptionNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,15 +28,15 @@ import { ColorResult, SketchPicker } from 'react-color';
     };
 
     const handleOptionIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        var values = "";
+        var values = true;
         if(e.target.checked === true){
-            values = "true";
+            values = true;
         }else{
-            values = "false";
+            values = false;
         }
         setOptionId(values);
         SetOptionId(values);
-        Cookies.set("optionId", JSON.stringify(e.target.value));
+        Cookies.set("optionId", JSON.stringify(e.target.checked));
     };
 
     const changeTextColor = (color: ColorResult) => {
@@ -66,7 +66,7 @@ import { ColorResult, SketchPicker } from 'react-color';
                     <input type="checkbox" 
                            className="C_chx"
                            onBlur={handleOptionIdChange}
-                           value={optionId} />
+                           checked={optionId} />
                 </div>
               </div>
       );

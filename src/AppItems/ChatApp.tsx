@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+/* eslint-disable react/jsx-pascal-case */
+import React, { useState, useEffect, useRef } from "react";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import "./TextApp.css";
@@ -11,17 +12,6 @@ import Cookies from "js-cookie";
 
 // 掲示板の設定(背景や全体の文字など、掲示板全体に関する設定)
 // modal
-type Option = {
-  id: string;
-  index: number;
-  label: string;
-  value: string;
-};
-type FuncKeySetProps = {
-  optionItem: Option[];
-  SetOptionItem: React.Dispatch<React.SetStateAction<Option[]>>; // 追加する
-}
-
 
 // IDに使用する乱数生成
 function generateRandomString(length: number): string {
@@ -36,53 +26,139 @@ function generateRandomString(length: number): string {
 
 // 本体
 const App: React.FC = () => {
-    // set Itemp Input state
-    const [inputView, setInputView] = useState("");
+    // setする投稿内容をヘッダー付きで表示したもの
+    const [inputViewAll, setInputViewAll] = useState("");
+    // setする投稿内容のみをまとめたもの
+    const [inputViewItem, setInputViewItem] = useState("");
     // set COde Input State
-    const [inputCode, setInputCode] = useState("");
+    const [inputCodeAll, setInputCodeAll] = useState("");
+    const [inputCodeItem, setInputCodeItem] = useState("");
     // Chat state
-    const [chatNum, setChatNum] = useState("1");
+    const [chatNum, setChatNum] = useState(1);
     const [chatTitle, setChatTitle] = useState("デフォルト掲示板名無し");
     const [chatId, setChatId] = useState(generateRandomString(10));
+    const [chatText, setChatText] = useState("");
 
     // setting item
     const [optionColor, SetOptionColor]  = useState("");
-    const [optionName , SetOptionNames]  = useState("");
-    const [optionId   , SetOptionId]     = useState("");
-    
+    const [optionName , SetOptionNames]  = useState("デフォルトスレ主,デフォルト掲示板ななし");
+    const [optionId   , SetOptionId]     = useState<boolean>(true);
 
     // setting modal
     const { Modal2, toggleModal2 } = useModal();
 
+    const selectDivRef = useRef<HTMLDivElement>(null);
+
     // Itemp Input
-    const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setInputView(e.target.value);
-        Cookies.set("ChatText", JSON.stringify(e.target.value));
+    const handleInputChange = (chat: string, code:string ) => {
+        setInputViewAll(chat);
+        setInputCodeAll(code);
+        //Cookies.set("ChatText", JSON.stringify(chat));
     };
 
+    // 投稿ボタン押下処理
+    const submitNameChange = () => {  
+      console.log(`押されたタイミング:${inputViewItem}`)    
+      // View Mode
+      const viewCss = {
+        'background-Color':optionColor,
+        'font-Size': '15px',
+        padding: '5px'
+    }
+    const inputViewMode = () => {
+        const cssString = Object.keys(viewCss).map(key => `${key}:${viewCss[key as keyof typeof viewCss]}`).join(';');
+        const heder = `<div style="${cssString}">`;
+        const footer = `</div>`;
+
+        let text = "";
+        if(optionId === true){
+            text = `
+            <p>${chatNum}: ${chatTitle} ID:${chatId}</p>
+            <p>${chatText}</p>
+            `;
+        }else{
+            text = `
+            <p>${chatNum}: ${chatTitle}</p>
+            <p>${chatText}</p>
+            `;
+        }
+        const main = inputViewItem + text;
+        setInputViewItem(main);
+        const All = `${heder}
+                     ${main}
+                     ${footer}`;
+        return ( All )
+    }
+
+    // H-Code Mode
+    const inputH_CodeMode =() => {
+        const bcCol_A = 
+`《boxbgcolor:${optionColor}》
+《box:p0.5》`;
+        const bcCol_B = 
+`《/box》
+《/boxbgcolor》`;
+        const id_A = `《id:r${chatNum}》`; 
+        const id_B = `《id:r${chatNum}e》`; 
+        let textItem = "";
+
+        if(optionId === true){
+            textItem = 
+`${id_A}${chatNum}: ${chatTitle} ID:${chatId}
+${chatText}
+
+${id_B} 
+`;
+        }else{
+          textItem = 
+`${id_A}${chatNum}: ${chatTitle}
+${chatText}
+
+${id_B} 
+`;
+        }
+
+        const main = inputCodeItem + textItem;
+        setInputCodeItem(main);
+        const All = 
+`${bcCol_A}
+${main}
+${bcCol_B}`;
+        return ( All )
+    }
+
+    var num = chatNum+1;
+    setChatNum(num);
+    setChatId(generateRandomString(10));
+    handleInputChange(inputViewMode(),inputH_CodeMode())
+        //Cookies.set("ChatText", JSON.stringify(e.target.value));
+  };
+
+    // number set
     const handleNumbChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setChatNum(e.target.value);
+        setChatNum(Number(e.target.value));
         //Cookies.set("ChatText", JSON.stringify(e.target.value));
     };
 
-    const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setChatTitle(e.target.value);
-        //Cookies.set("ChatText", JSON.stringify(e.target.value));
-    };
-
+    // Id set
     const handleIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setChatId(e.target.value);
         //Cookies.set("ChatText", JSON.stringify(e.target.value));
     };
-
     
-    const titleOptions = Array.from(new Set(optionName.split(",")));
+    // text set
+    const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setChatText(e.target.value);
+        //Cookies.set("ChatText", JSON.stringify(e.target.value));
+    };
 
+    // 投稿主選択ボックスの設定
+    const titleOptions = Array.from(new Set(optionName.split(",")));
     const optionsTitleSet = titleOptions.map((c) => ({
       value: c,
       label: c,
     }));
-
+    // 投稿主選択ボックスの変更処理
     const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
       const selected = event.target.value;
       setChatTitle(selected);
@@ -94,13 +170,19 @@ const App: React.FC = () => {
       const cookieCodes = Cookies.get("ChatCode");
       if (cookieTexts) {
         const parsedText: string = JSON.parse(cookieTexts);
-        setInputView(parsedText);
+        setInputViewAll(parsedText);
       }
       if (cookieCodes) {
         const parsedText: string = JSON.parse(cookieCodes);
-        setInputCode(parsedText);
+        setInputCodeAll(parsedText);
       }
     }, []);
+
+    useEffect(() => {
+      if (selectDivRef.current) {
+        selectDivRef.current.scrollTop = selectDivRef.current.scrollHeight;
+      }
+    }, [inputViewAll, inputCodeAll]);
     
     // modal
     // Function key用処理
@@ -145,17 +227,17 @@ const App: React.FC = () => {
               <Tab>H-Code</Tab>
             </TabList>
             <TabPanel>
-            <div className="outBox" dangerouslySetInnerHTML={{ __html: inputView }} />
+            <div className="outBox" id="views" dangerouslySetInnerHTML={{ __html: inputViewAll }} ref={selectDivRef} />
             </TabPanel>
             <TabPanel>
-            <div className="outBox" dangerouslySetInnerHTML={{ __html: inputCode }} />
+            <div className="outBox" id="h_code" ref={selectDivRef}><pre>{inputCodeAll}</pre></div>
             </TabPanel>
         </Tabs>
         </div>
 
         <div className="MainCont">
         <footer>
-          <h3>Input HTML</h3>
+          <br></br>
           {btn_return()}
           <div className="C_menu">
           <input type="text" id="C_numb"   onChange={handleNumbChange}  value={chatNum}/>:
@@ -171,7 +253,8 @@ const App: React.FC = () => {
           </select>
           <input type="text" id="C_id" onChange={handleIdChange}    value={chatId}/>
           </div>
-          <textarea className="box" id="html-content" onChange={handleInputChange} />
+          <textarea className="box" id="html-content" onChange={handleTextChange} />
+          <button id="sub_Btn" onClick={submitNameChange}>投稿</button>
         </footer>
       </div>
         </>

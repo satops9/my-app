@@ -1,5 +1,6 @@
  body {
     margin: auto;
+    overflow: hidden;
  }
 
  /* ここからheader */
@@ -19,7 +20,6 @@
    display: inline;
    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
    color: black;
-   margin-right: 16px;
   }
 
  ul {
@@ -28,7 +28,7 @@
 
   li {
    display:inline-flex;
-   margin-left: 16px;
+   margin-left: 8px;
    text-decoration: none;
    border:1px solid rgb(44, 90, 92);
    border-radius: 8px;
@@ -97,6 +97,7 @@
    position: relative;
    display: flex;
    box-sizing: border-box;
+   width: auto;
   }
 
   footer {
@@ -105,16 +106,20 @@
    padding: 0 10px;
    background-color: cadetblue;
    color: white;
+   align-items: center;
+
   }
 
  .box { /* 入力UI */
-   width:95%; height:300px; overflow-y: scroll;
-   margin:10px; padding: auto; border:1px solid black;
+   width:95%; height:250px; overflow-y: scroll;
+   margin:10px; padding: 5px; border:1px solid rgb(44, 90, 92);
+   align-items: center;
  }
 
  .outBox { /* 出力UI */
     width:100%; height:400px; overflow-y: scroll;
     margin: auto; padding: auto; border:1px solid lightgray;
+    align-items: center;
  }
 
   /* ここまでmain */
@@ -150,12 +155,15 @@
   /* ここからスマートフォンの設定 */
  
   @media screen and (max-width:480px) {
+body{
+  overflow: hidden;
+}
    .Header {
       position: fixed;
       display: flex;
       z-index: 999;
       top: 0; left: 0;
-      width: 100%; height: 60px;
+      width: 100%; height: 90px;
       background-color: cadetblue;
       color: white;
       box-sizing:content-box;
@@ -174,10 +182,22 @@
      }
 
      .box { /* 入力UI */
-      width:95%; height:250; overflow-y: scroll;
-      margin:10px; padding: auto; border:1px solid black;
+      width:95%; height:230; overflow-y: scroll;
+      margin:auto; padding: auto; border:1px solid black;
     }
    
+    .main { /* 全体の設定 */
+      margin-Top: 90px;
+      padding: 5px;
+     }
+
+     .MainCont { /* boxを下部に固定するためのメインコンテンツ */
+      position: relative;
+      display: flex;
+      width: auto;
+      box-sizing: border-box;
+     }
+
     .outBox { /* 出力UI */
        width:100%; height:200px; overflow-y: scroll;
        margin: auto; padding: auto; border:1px solid lightgray;

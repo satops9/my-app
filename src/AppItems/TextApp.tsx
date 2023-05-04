@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import "./TextApp.css";
 import { initialOptions } from "./TextOption";
 import useModal from './useModal';
@@ -10,9 +10,6 @@ type Option = {
   label: string;
   value: string;
 };
-interface ModalProps {
-  children: React.ReactNode;
-}
 
 type FuncKeySetProps = {
   optionItem: Option[];
@@ -156,7 +153,9 @@ const App: React.FC = () => {
         <footer>
           <h3>Input HTML</h3>
             {btn_return()}
+            <br></br>
           <textarea className="box" id="html-content" onChange={handleInputChange} value={input} />
+        <br></br>
         </footer>
       </div>
     </div>

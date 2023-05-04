@@ -37,6 +37,12 @@
 .setBox {
     display:flex;
     margin-bottom: 16px;
+    overflow: hidden;
+}
+
+#sub_Btn {
+    width: 95%;
+    margin: 5px 0 10px 0;
 }
 
 @media screen and (max-width:480px) {
@@ -46,6 +52,7 @@
         color: white;
         box-sizing:content-box;
         margin:10px; padding: auto;
+        overflow: hidden;
     }
     
     #C_numb {
