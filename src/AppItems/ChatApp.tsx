@@ -53,7 +53,8 @@ const App: React.FC = () => {
     const handleInputChange = (chat: string, code:string ) => {
         setInputViewAll(chat);
         setInputCodeAll(code);
-        //Cookies.set("ChatText", JSON.stringify(chat));
+        Cookies.set("ChatText", JSON.stringify(chat));
+        Cookies.set("ChatCode", JSON.stringify(code));
     };
 
     // 投稿ボタン押下処理
