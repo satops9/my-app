@@ -38,6 +38,7 @@ export function submitBbsSetChange(
     chatText: string,
     setChatNum: (num: number) => void,
     setChatId: (id: string) => void,
+    setChatText: (id: string) => void,
     handleInputChange: (inputViewItem: string, inputCodeItem: string) => void, 
     setInputViewItem: (inputViewItem: string) => void,
     setInputCodeItem: (inputCodeItem: string) => void) {  
@@ -114,5 +115,6 @@ ${bcCol_B}`;
     var num = chatNum+1;
     setChatNum(num);
     setChatId(generateRandomString(10));
+    setChatText("");
     handleInputChange(inputViewMode(),inputH_CodeMode())
   }

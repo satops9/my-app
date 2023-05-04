@@ -54,7 +54,7 @@ const App: React.FC = () => {
         inputViewItem, inputCodeItem, 
         optionColor, optionId, 
         chatNum, chatTitle, chatId, chatText, 
-        setChatNum, setChatId,
+        setChatNum, setChatId, setChatText,
         handleInputChange, setInputViewItem, setInputCodeItem);
   };
 
