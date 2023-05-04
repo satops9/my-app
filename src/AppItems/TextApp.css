@@ -178,6 +178,15 @@
       background:cadetblue;
     }
 
+
+  @media screen and (min-width:960px) {
+    body {
+      margin: auto;
+      display: flex;
+      justify-content: center;
+   }
+  }
+
   /* ここからスマートフォンの設定 */
  
   @media screen and (max-width:480px) {

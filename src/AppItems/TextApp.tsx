@@ -143,7 +143,7 @@ const App: React.FC = () => {
   }
 
   return (
-    <div>
+    <div className="weapper">
       <div className="main">
         <h3>Output</h3>
         <div className="outBox" dangerouslySetInnerHTML={{ __html: input }}></div>

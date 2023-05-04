@@ -7,6 +7,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ onMenuSelected }) => {
     return (
+      <div className="weapper">
         <header className="Header">
             <h1 className="title">satop</h1>
           <ul>
@@ -17,6 +18,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuSelected }) => {
           <li onClick={() => onMenuSelected('chat')}>/BBS</li>
         </ul>
         </header>
+      </div>
       );
 }
 

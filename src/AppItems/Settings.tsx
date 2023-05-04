@@ -36,7 +36,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="weapper">
       <div className="main">
         <h3>キー設定</h3>
         制作画面で使用できる簡易キーを設定できます。<br></br>
