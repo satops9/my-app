@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import 'react-tabs/style/react-tabs.css';
 import "./TextApp.css";
 import "./ChatApp.css";
+import useModal from './useModal';
 import Cookies from "js-cookie";
 import { ColorResult, SketchPicker } from 'react-color';
   
@@ -65,8 +66,8 @@ import { ColorResult, SketchPicker } from 'react-color';
                 <label>ID表示：</label>
                     <input type="checkbox" 
                            className="C_chx"
-                           onBlur={handleOptionIdChange}
-                           checked={optionId} />
+                           checked={optionId}
+                           onChange={handleOptionIdChange} />
                 </div>
               </div>
       );

@@ -1,6 +1,10 @@
  body {
     margin: auto;
-    overflow: hidden;
+ }
+ .weapper {
+  width: 1170px;
+  max-width: 100%;
+  overflow: hidden;
  }
 
  /* ここからheader */
@@ -42,6 +46,26 @@
   /* ここまでheader */
 
   /* ここからmain */
+
+  .btnMain{
+    display: block;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  #setBtn {
+      display: inline-flex;
+      margin-right: 6px;
+  }
+
+  #setBtn_r {
+      display: inline-flex;
+      margin-right: 6px;
+      border:1px solid rgb(92, 44, 56);
+      border-radius: 8px;
+      background-color: red;
+      color:black
+  }
 
   .main { /* 全体の設定 */
    margin-Top: 60px;
@@ -114,12 +138,14 @@
    width:95%; height:250px; overflow-y: scroll;
    margin:10px; padding: 5px; border:1px solid rgb(44, 90, 92);
    align-items: center;
+   border-radius: 8px;
  }
 
  .outBox { /* 出力UI */
     width:100%; height:400px; overflow-y: scroll;
     margin: auto; padding: auto; border:1px solid lightgray;
     align-items: center;
+    border-radius: 8px;
  }
 
   /* ここまでmain */
@@ -155,9 +181,11 @@
   /* ここからスマートフォンの設定 */
  
   @media screen and (max-width:480px) {
-body{
-  overflow: hidden;
-}
+   .weapper {
+    width: 1170px;
+    max-width: 100%;
+    overflow: hidden;
+   }
    .Header {
       position: fixed;
       display: flex;

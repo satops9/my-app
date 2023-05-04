@@ -7,8 +7,10 @@ interface ModalProps {
 interface UseModalReturnType {
   Modal: React.FC<ModalProps>;
   Modal2: React.FC<ModalProps>;
+  Modal3: React.FC<ModalProps>;
   toggleModal: () => void;
   toggleModal2: () => void;
+  toggleModal3: () => void;
 }
 
 const useModal = (): UseModalReturnType => {
@@ -33,7 +35,16 @@ const useModal = (): UseModalReturnType => {
     return <>{children}</>;
   };
 
-  return { Modal, toggleModal,Modal2, toggleModal2 };
+  const toggleModal3 = () => {
+    setShow(prev => !prev);
+  };
+
+  const Modal3: React.FC<ModalProps> = ({ children }) => {
+    if (!show) return null;
+    return <>{children}</>;
+  };
+
+  return { Modal, toggleModal,Modal2, toggleModal2,Modal3, toggleModal3 };
 };
 
 export default useModal;
