@@ -8,7 +8,7 @@ import useModal from './useModal';
 import { C_FuncKeySet } from './ChatModal';
 import Cookies from "js-cookie";
 import { generateRandomString, submitBbsSetChange, 
-         handleNumbChange, handleIdChange, handleTextChange} from './ChatSub';
+         handleNumbChange, handleTextChange, handleIdsChange} from './ChatSub';
 
 
 // 掲示板風の表現・演出を制作するジェネレーター
@@ -27,11 +27,15 @@ const App: React.FC = () => {
     const [chatId,    setChatId] = useState(generateRandomString(10));
     const [chatText,  setChatText] = useState("");
 
-    // setting item
+    // setting item 背景色
     const [optionColor, SetOptionColor]  = useState("");
+    // setting item 投稿主
     const [optionName , SetOptionNames]  = useState("デフォルトスレ主,デフォルト掲示板ななし");
-    
+    // setting item IDの有無
     const [optionId   , SetOptionId]     = useState<boolean>(true);
+    // setting item 選択式IDの内容
+    const [selectIdText, SetSelectIdText] = useState("testId,TESTid");
+    const [optionsIdSet, setOptionsIdSet] = useState<{ value: string; label: string;}[]>([ {value: chatId, label:chatId}, { value: "testId", label: "testId" }, { value: "TESTid", label: "TESTid" } ]);
 
     // setting modal
     const { Modal2, toggleModal2 } = useModal();
@@ -40,12 +44,22 @@ const App: React.FC = () => {
 
     const selectDivRef = useRef<HTMLDivElement>(null);
 
-    // Itemp Input
-    const handleInputChange = (chat: string, code:string ) => {
+    // Cookies Itemp set
+    const handleInputChange = (chat: string, code:string, textItem: string, codeItem: string ) => {
+        // 表示内容の設定を保存
         setInputViewAll(chat);
         setInputCodeAll(code);
-        Cookies.set("ChatText", JSON.stringify(chat));
-        Cookies.set("ChatCode", JSON.stringify(code));
+        setInputViewItem(textItem);
+        setInputCodeItem(codeItem);
+        Cookies.set("ChatTexts", JSON.stringify(chat));
+        Cookies.set("ChatCodes", JSON.stringify(code));
+        Cookies.set("ChatTextsItem", JSON.stringify(textItem));
+        Cookies.set("ChatCodesItem", JSON.stringify(codeItem));
+
+        // 入力内容の設定を保存
+        Cookies.set("ChatNum", JSON.stringify(chatNum));
+        Cookies.set("ChatId", JSON.stringify(chatId));
+        Cookies.set("ChatText", JSON.stringify(chatText));
     };
 
     // 投稿ボタン押下処理
@@ -53,9 +67,9 @@ const App: React.FC = () => {
       submitBbsSetChange(
         inputViewItem, inputCodeItem, 
         optionColor, optionId, 
-        chatNum, chatTitle, chatId, chatText, 
+        chatNum, chatTitle, chatId, chatText, selectIdText,
         setChatNum, setChatId, setChatText,
-        handleInputChange, setInputViewItem, setInputCodeItem);
+        handleInputChange, setOptionsIdSet, setInputViewItem, setInputCodeItem);
   };
 
     // 投稿主選択ボックスの設定
@@ -70,10 +84,21 @@ const App: React.FC = () => {
       setChatTitle(selected);
     };
 
+    useEffect(() => {
+      setChatTitle(optionsTitleSet[0].value);
+    }, [optionName]);
+
     // funtion key option cookie set up
     useEffect(() => {
-      const cookieTexts = Cookies.get("ChatText");
-      const cookieCodes = Cookies.get("ChatCode");
+      optionCookieSet();
+    }, []);
+
+    // function key option cookie set up
+    const optionCookieSet= () =>{
+      const cookieTexts = Cookies.get("ChatTexts");
+      const cookieCodes = Cookies.get("ChatCodes");
+      const cookieTextItem = Cookies.get("ChatTextsItem");
+      const cookieCodeItem = Cookies.get("ChatCodesItem");
       if (cookieTexts) {
         const parsedText: string = JSON.parse(cookieTexts);
         setInputViewAll(parsedText);
@@ -82,13 +107,41 @@ const App: React.FC = () => {
         const parsedText: string = JSON.parse(cookieCodes);
         setInputCodeAll(parsedText);
       }
-    }, []);
+      if (cookieTextItem) {
+        const parsedText: string = JSON.parse(cookieTextItem);
+        setInputViewItem(parsedText);
+      }
+      if (cookieCodeItem) {
+        const parsedText: string = JSON.parse(cookieCodeItem);
+        setInputCodeItem(parsedText);
+      }
+
+      const cookieNum = Cookies.get("ChatNum");
+      const cookieText = Cookies.get("ChatText");
+      if (cookieNum) {
+        const parsedText: number = JSON.parse(cookieNum);
+        setChatNum(parsedText+1);
+      }
+      if (cookieText) {
+        const parsedText: string = JSON.parse(cookieText);
+        setChatText(parsedText);
+      }
+    };
 
     useEffect(() => {
       if (selectDivRef.current) {
         selectDivRef.current.scrollTop = selectDivRef.current.scrollHeight;
       }
     }, [inputViewAll, inputCodeAll]);
+
+    const selectIdsTexts = Array.from(new Set(selectIdText.split(",")));
+
+    useEffect(() => {
+      setOptionsIdSet([{value: chatId, label:chatId}
+                      , {value: selectIdsTexts[0], label:selectIdsTexts[0]}
+                      , {value: selectIdsTexts[1], label:selectIdsTexts[1]}]);
+  
+    }, [selectIdText]);
     
     // modal
     // Function key用処理
@@ -110,9 +163,11 @@ const App: React.FC = () => {
                   optionColors   = { optionColor    }
                   optionNames    = { optionName     }
                   optionIds      = { optionId       }
+                  selectIdText   = { selectIdText   }
                   SetOptionColor = { SetOptionColor }
                   SetOptionNames = { SetOptionNames }
                   SetOptionId    = { SetOptionId    }
+                  SetIdsText     = { SetSelectIdText}
                 />
                 <div className="btnMain">
                 <button onClick={toggleModal2}>完了</button>
@@ -151,14 +206,20 @@ const App: React.FC = () => {
 
   // リセット処理
   const resetCode = () =>{
-    Cookies.remove("ChatText");
-    Cookies.remove("ChatCode");
+    Cookies.remove("ChatTexts");
+    Cookies.remove("ChatCodes");
+    Cookies.remove("ChatTextsItem");
+    Cookies.remove("ChatCodesItem");
+    Cookies.remove("ChatNum");
     setInputViewAll("");
     setInputViewItem("");
     setInputCodeAll("");
     setInputCodeItem("");
     setChatNum(1);
-    setChatId(generateRandomString(10));
+    var ids = generateRandomString(10);
+    var text = Array.from(new Set(selectIdText.split(",")));
+    setChatId(ids);
+    setOptionsIdSet([{value: ids, label:ids}, {value: text[0], label:text[0]}, {value: text[1], label:text[1]}]);
     setChatText("");
   };
 
@@ -224,14 +285,24 @@ const App: React.FC = () => {
           <select
             id="C_title"
             onChange={handleChange}
-            defaultValue={titleOptions[0]} >
+            defaultValue={optionsTitleSet[0].value} >
             {optionsTitleSet.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.label}
               </option>
             ))}
           </select>
-          <input type="text" id="C_id" onChange={(e) => handleIdChange(e, setChatId)}    value={chatId}/>
+          <select
+            id="C_id"
+            onChange={(e) => handleIdsChange(e, setChatId)}
+            value={chatId}
+            defaultValue={chatId} >
+            {optionsIdSet.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
           </div>
           <textarea className="box" id="html-content" onChange={(e) => handleTextChange(e, setChatText)} value={chatText} />
           <button id="sub_Btn" onClick={submitNameChange}>投稿</button>

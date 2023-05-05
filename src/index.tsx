@@ -6,7 +6,7 @@ import Header from './AppItems/Header';
 import reportWebVitals from './reportWebVitals';
 
 const Root: React.FC = () => {
-  const [selectedMenu, setSelectedMenu] = useState<string>('top');
+  const [selectedMenu, setSelectedMenu] = useState<string>('chat');
 
   return (
     <React.StrictMode>

@@ -21,6 +21,11 @@ export const handleIdChange = (e: React.ChangeEvent<HTMLInputElement>
     setChatId(e.target.value);
 };
 
+export const handleIdsChange = (e: React.ChangeEvent<HTMLSelectElement>
+                                ,setChatId: (title: string) => void) => {
+    setChatId(e.target.value);
+};
+
 // text set
 export const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>
                                 ,setChatText: (title: string) => void) => {
@@ -36,14 +41,18 @@ export function submitBbsSetChange(
     chatTitle: string, 
     chatId: string, 
     chatText: string,
+    selectIds: string,
     setChatNum: (num: number) => void,
     setChatId: (id: string) => void,
     setChatText: (id: string) => void,
-    handleInputChange: (inputViewItem: string, inputCodeItem: string) => void, 
+    handleInputChange: (inputViewItem: string, inputCodeItem: string, textItem: string, codeItem: string) => void, 
+    setOptionsIdSet: React.Dispatch<React.SetStateAction<{ value: string; label: string; }[]>>,
     setInputViewItem: (inputViewItem: string) => void,
-    setInputCodeItem: (inputCodeItem: string) => void) {  
+    setInputCodeItem: (inputCodeItem: string) => void) {
+    var textItems = "";
+    var codeItems = "";  
     // submitNameChangeの中身のコード
-    console.log(`押されたタイミング:${inputViewItem}`)    
+    console.log(`押されたタイミング:${inputViewItem}`)
       // View Mode
       const viewCss = {
         'background-Color':optionColor,
@@ -68,6 +77,7 @@ export function submitBbsSetChange(
             `;
         }
         const main = inputViewItem + text;
+        textItems = main;
         setInputViewItem(main);
         const All = `${heder}
                      ${main}
@@ -104,6 +114,7 @@ ${id_B}
         }
 
         const main = inputCodeItem + textItem;
+        codeItems = main;
         setInputCodeItem(main);
         const All = 
 `${bcCol_A}
@@ -114,7 +125,15 @@ ${bcCol_B}`;
 
     var num = chatNum+1;
     setChatNum(num);
-    setChatId(generateRandomString(10));
+    const ids = generateRandomString(10);
+    setChatId(ids);
     setChatText("");
-    handleInputChange(inputViewMode(),inputH_CodeMode())
+    const texts = ids + "," + selectIds;
+    const titleOptions = Array.from(new Set(selectIds.split(",")));
+    const optionsTitleSet = titleOptions.map((c) => ({
+      value: c,
+      label: c,
+    }));
+    setOptionsIdSet([{value:ids,label:ids},{value:titleOptions[0],label:titleOptions[0]}, {value:titleOptions[1],label:titleOptions[1]}]);
+    handleInputChange(inputViewMode(),inputH_CodeMode(), textItems, codeItems)
   }

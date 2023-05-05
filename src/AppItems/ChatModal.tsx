@@ -2,24 +2,28 @@ import React, { useState } from "react";
 import 'react-tabs/style/react-tabs.css';
 import "./TextApp.css";
 import "./ChatApp.css";
-import useModal from './useModal';
 import Cookies from "js-cookie";
 import { ColorResult, SketchPicker } from 'react-color';
+import { generateRandomString } from "./ChatSub";
   
   type C_FuncKeySetProps = {
     optionColors: string;
     optionNames: string;
     optionIds   : boolean;
+    selectIdText: string;
     SetOptionColor: React.Dispatch<React.SetStateAction<string>>;
     SetOptionNames: React.Dispatch<React.SetStateAction<string>>;
     SetOptionId   : React.Dispatch<React.SetStateAction<boolean>>;
+    SetIdsText: React.Dispatch<React.SetStateAction<string>>;
   }
 
   export const C_FuncKeySet: React.FC<C_FuncKeySetProps> = ({ 
-    optionColors, optionNames, optionIds, SetOptionColor, SetOptionNames, SetOptionId }) => {
+    optionColors, optionNames, optionIds, selectIdText, 
+    SetOptionColor, SetOptionNames, SetOptionId, SetIdsText }) => {
     const [optionColor, setOptionColor]  = useState<string>(optionColors);
     const [optionName , setOptionNames]  = useState<string>(optionNames);
     const [optionId   , setOptionId]     = useState<boolean>(optionIds);
+    const [selectIdsText  , setIdsText]    = useState<string>(selectIdText);
     
     // funtion key option value setup
     const handleOptionNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,6 +49,12 @@ import { ColorResult, SketchPicker } from 'react-color';
         SetOptionColor(color.hex);
         Cookies.set("optionColor", JSON.stringify(color.hex));
       }
+
+    const handleSelectIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setIdsText(e.target.value);
+        SetIdsText(e.target.value);
+        Cookies.set("selectIds", JSON.stringify(e.target.value));
+    };
     
     // Function key設定用処理
     const funcKey_set = () =>{
@@ -68,6 +78,9 @@ import { ColorResult, SketchPicker } from 'react-color';
                            className="C_chx"
                            checked={optionId}
                            onChange={handleOptionIdChange} />
+                    <input type="text" 
+                           defaultValue={selectIdsText}
+                           onBlur={handleSelectIdChange} />
                 </div>
               </div>
       );
