@@ -137,10 +137,11 @@ const App: React.FC = () => {
     const selectIdsTexts = Array.from(new Set(selectIdText.split(",")));
 
     useEffect(() => {
-      setOptionsIdSet([{value: chatId, label:chatId}
-                      , {value: selectIdsTexts[0], label:selectIdsTexts[0]}
-                      , {value: selectIdsTexts[1], label:selectIdsTexts[1]}]);
-  
+      const optionsIdsSet = selectIdsTexts.map((c) => ({
+        value: c,
+        label: c,
+      }));
+      setOptionsIdSet(optionsIdsSet);
     }, [selectIdText]);
     
     // modal
