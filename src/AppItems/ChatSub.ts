@@ -129,11 +129,11 @@ ${bcCol_B}`;
     setChatId(ids);
     setChatText("");
     const texts = ids + "," + selectIds;
-    const titleOptions = Array.from(new Set(texts.split(",")));
-    const optionsTitleSet = titleOptions.map((c) => ({
+    const idsOptions = Array.from(new Set(texts.split(",")));
+    const optionsIdsSet = idsOptions.map((c) => ({
       value: c,
       label: c,
     }));
-    setOptionsIdSet(optionsTitleSet);
+    setOptionsIdSet(optionsIdsSet);
     handleInputChange(inputViewMode(),inputH_CodeMode(), textItems, codeItems)
   }
