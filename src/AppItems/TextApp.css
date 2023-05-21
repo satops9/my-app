@@ -43,6 +43,10 @@
    text-align: center;
   }
 
+  .overview {
+    padding: 0 20px 0 20px;
+  }
+
   /* ここまでheader */
 
   /* ここからmain */

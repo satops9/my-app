@@ -4,6 +4,7 @@ import Usage from './Usage';
 import Settings from './Settings';
 import Top from './TextApp';
 import Chat from './ChatApp';
+import HameTop from './HtmlToHameln/paegTop'
 
 interface AppProps {
   selectedMenu: string;
@@ -21,7 +22,7 @@ const App: React.FC<AppProps> = ({ selectedMenu }) => {
         case 'chat':
           return <Chat />;
         default:
-        return <Top />;
+        return <HameTop />;
     }
   };
 

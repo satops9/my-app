@@ -13,8 +13,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuSelected }) => {
           <ul>
           <li onClick={() => onMenuSelected('overview')}>概要</li>
           <li onClick={() => onMenuSelected('usage')}>使い方</li>
-          <li onClick={() => onMenuSelected('settings')}>設定</li>
-          <li onClick={() => onMenuSelected('top')}>/HTML</li>
+          <li onClick={() => onMenuSelected('top')}>/Tags</li>
           <li onClick={() => onMenuSelected('chat')}>/BBS</li>
         </ul>
         </header>
