@@ -1,0 +1,15 @@
+/* Path: src\AppItems\HtmlToHameln\all.css */
+
+.right {
+    text-align: right;
+    float: right;
+}
+
+.left {
+    text-align: left;
+    float: left;
+}
+
+.center {
+    text-align: center;
+}

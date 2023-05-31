@@ -182,27 +182,17 @@ const App: React.FC = () => {
   }
 
   const copyModal = () =>{
-    navigator.clipboard.writeText(inputCodeAll);
-    return (
-      <>
-      <button onClick={toggleModal}>コピー</button>
-            <Modal>
-                <div id="overlay">
-                  <div className="mod_main">
-                  <div id="content">
-                  <div id="mini_cnt">
-                    <h3>コピー完了</h3>
-                  </div>
-                  <br></br>
-                  <div className="btnMain">
-                  <button onClick={toggleModal}>終了</button>
-                  </div>
-                    </div>
-                  </div>
-                </div>
-            </Modal>
-        </>
-    )
+    const handleCopy = async () => {
+      try {
+        await navigator.clipboard.writeText(inputCodeAll);
+        return alert("コピーしました");
+      } catch (error) {
+        console.error("コピーに失敗しました", error);
+        return alert(`コピーに失敗しました
+  ${error}`);
+      }
+    };
+  return (<button onClick={handleCopy}>コピー</button>)
   }
 
   // リセット処理
@@ -262,7 +252,7 @@ const App: React.FC = () => {
     // Main
     return(
         <div className="weapper">
-        <div className="main">
+        <div className="main2">
         <Tabs>
             <TabList>
               <Tab>View</Tab>
@@ -285,27 +275,24 @@ const App: React.FC = () => {
           <input type="text" id="C_numb"   onChange={(e) => handleNumbChange(e, setChatNum)}  value={chatNum}/>:
           <select
             id="C_title"
-            onChange={handleChange}
-            defaultValue={optionsTitleSet[0].value} >
+            onChange={handleChange} >
             {optionsTitleSet.map((option) => (
-              <option key={option.value} value={option.value}>
+              <option key={option.value} value={option.value} selected={option.value === optionsTitleSet[0].value}>
                 {option.label}
               </option>
             ))}
           </select>
           <select
             id="C_id"
-            onChange={(e) => handleIdsChange(e, setChatId)}
-            value={chatId}
-            defaultValue={chatId} >
+            onChange={(e) => handleIdsChange(e, setChatId)}>
             {optionsIdSet.map((option) => (
-              <option key={option.value} value={option.value}>
+              <option key={option.value} value={option.value} selected={option.value === chatId}>
                 {option.label}
               </option>
             ))}
           </select>
           </div>
-          <textarea className="box" id="html-content" onChange={(e) => handleTextChange(e, setChatText)} value={chatText} />
+          <textarea className="box_L" id="html-content" onChange={(e) => handleTextChange(e, setChatText)} value={chatText} />
           <button id="sub_Btn" onClick={submitNameChange}>投稿</button>
         </footer>
       </div>

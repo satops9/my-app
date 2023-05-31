@@ -5,6 +5,7 @@ import Settings from './Settings';
 import Top from './TextApp';
 import Chat from './ChatApp';
 import HameTop from './HtmlToHameln/paegTop'
+import ChatC from './ChatHead';
 
 interface AppProps {
   selectedMenu: string;
@@ -20,7 +21,7 @@ const App: React.FC<AppProps> = ({ selectedMenu }) => {
         case 'settings':
           return <Settings />;
         case 'chat':
-          return <Chat />;
+          return <ChatC />;
         default:
         return <HameTop />;
     }

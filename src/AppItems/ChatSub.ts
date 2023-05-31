@@ -137,3 +137,31 @@ ${bcCol_B}`;
     setOptionsIdSet(optionsIdsSet);
     handleInputChange(inputViewMode(),inputH_CodeMode(), textItems, codeItems)
   }
+
+  export function submitLineSetChange(
+    header: string,
+    footer: string,
+    inputViewItem: string, 
+    inputCodeItem: string, 
+    chatTitle: string, // LINEの名前
+    chatName: string, // 相手の名前
+    chatText: string, // LINEのテキスト
+    chatNotion: boolean, // LINEの既読有無
+    setChatText: (id: string) => void,
+    handleInputChange: (inputViewItem: string, inputCodeItem: string, textItem: string, codeItem: string) => void, 
+    setInputViewItem: (inputViewItem: string) => void,
+    setInputCodeItem: (inputCodeItem: string) => void) {
+    var textItems = "";
+    var codeItems = "";
+
+      // View Mode
+      const inputViewMode = () => {
+        
+      }
+    };
+
+    const test = (id:string) => {
+      let bodys = ``;
+
+      return bodys;
+    }

@@ -17,6 +17,12 @@
           "meta[name=theme-color]"
         ]
       }
+    ],
+    "axe/parsing": [
+      "default",
+      {
+        "duplicate-id-aria": "off"
+      }
     ]
   }
 }
