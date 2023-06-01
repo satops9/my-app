@@ -251,7 +251,7 @@ const Body_H = (name: string, text: string, res: number, col:string, fav: number
 
     return `
 《box》
-《id:r${res}》《bordercolor:#0000ff》《opacity:0》:《/opacity》《text:s1.1》《color:#0000ff》《b》≫${res}《/b》《/color》《/text》《opacity:0》:《/opacity》《/bordercolor》《opacity:0》:《/opacity》《opacity:0》\《/opacity》《text:s1.1》《color:#0000ff》《b》${name}2X/XX/XX XX:XX:XX《/b》《/color》《/text》《opacity:0》\《/opacity》《b》《color:#ffc513》♡ ${fav}《/color》《/b》《opacity:0》\《/opacity》 《text:s1.1》《bgcolor:#8080d2》《color:#fff》《opacity:0》:《/opacity》報告《opacity:0》:《/opacity》《/color》《/bgcolor》《/text》《box:w100%,bo#7c7c88》《/box》《/box》
+《id:r${res}》《bordercolor:#0000ff》《opacity:0》:《/opacity》《text:s1.1》《color:#0000ff》《b》≫${res}《/b》《/color》《/text》《opacity:0》:《/opacity》《/bordercolor》《opacity:0》:《/opacity》《opacity:0》\《/opacity》《text:s0.8》《color:#0000ff》《b》${name}2X/XX/XX XX:XX:XX《/b》《/color》《/text》《opacity:0》\《/opacity》《b》《color:#ffc513》♡ ${fav}《/color》《/b》《opacity:0》\《/opacity》 《text:s1.1》《bgcolor:#8080d2》《color:#fff》《opacity:0》:《/opacity》報告《opacity:0》:《/opacity》《/color》《/bgcolor》《/text》《box:w100%,bo#7c7c88》《/box》《/box》
 ${setText()}
 《id:r${res}e》
 `
@@ -261,15 +261,45 @@ ${setText()}
   export const RepTotals = (HCodeBox: string) => {
     console.log(`HCodeBox:${HCodeBox}`);
     // 1:res 3:name 4:favs 5:col 6:size 7:text
-    const setRegex = /《id:r([\s\S]+?)》《bordercolor:#0000ff》《opacity:0》:《\/opacity》《text:s1.1》《color:#0000ff》《b》≫([\s\S]+?)《\/b》《\/color》《\/text》《opacity:0》:《\/opacity》《\/bordercolor》《opacity:0》:《\/opacity》《opacity:0》\《\/opacity》《text:s1.1》《color:#0000ff》《b》([\s\S]+?)2X\/XX\/XX XX:XX:XX《\/b》《\/color》《\/text》《opacity:0》\《\/opacity》《b》《color:#ffc513》♡ ([\s\S]+?)《\/color》《\/b》《opacity:0》\《\/opacity》 《text:s1.1》《bgcolor:#8080d2》《color:#fff》《opacity:0》:《\/opacity》報告《opacity:0》:《\/opacity》《\/color》《\/bgcolor》《\/text》《box:w100%,bo#7c7c88》《\/box》《\/box》\n《text:([\s\S]+?),([\s\S]+?)》([\s\S]+?)《\/text》\n《id:r([\s\S]+?)e》/g;
-    const testRegex = /《id:r([\s\S]+?)》《bordercolor:#0000ff》/g;
+    const setRegex = /《id:r([\s\S]+?)》《bordercolor:#0000ff》《opacity:0》:《\/opacity》《text:s1.1》《color:#0000ff》《b》≫([\s\S]+?)《\/b》《\/color》《\/text》《opacity:0》:《\/opacity》《\/bordercolor》《opacity:0》:《\/opacity》《opacity:0》\《\/opacity》《text:s0.8》《color:#0000ff》《b》([\s\S]+?)2X\/XX\/XX XX:XX:XX《\/b》《\/color》《\/text》《opacity:0》\《\/opacity》《b》《color:#ffc513》♡ ([\s\S]+?)《\/color》《\/b》《opacity:0》\《\/opacity》 《text:s1.1》《bgcolor:#8080d2》《color:#fff》《opacity:0》:《\/opacity》報告《opacity:0》:《\/opacity》《\/color》《\/bgcolor》《\/text》《box:w100%,bo#7c7c88》《\/box》《\/box》\n《text:([\s\S]+?),([\s\S]+?)》([\s\S]+?)《\/text》\n《id:r([\s\S]+?)e》/g;
+    const testRegex = /《box》\n《id:r([\s\S]+?)》《bordercolor:#0000ff》/g;
     console.log(setRegex);
+
+    const resRegex = /《box》\n《id:r([\s\S]+?)》《bordercolor:#0000ff》《opacity:0》:《\/opacity》/g;
+    const nameRegex = /《text:s0.8》《color:#0000ff》《b》([\s\S]+?)2X\/XX\/XX XX:XX:XX《\/b》《\/color》《\/text》《opacity:0》\《\/opacity》/g;
+    const favRegex = /《b》《color:#ffc513》♡ ([\s\S]+?)《\/color》《\/b》《opacity:0》\《\/opacity》/g;
+    const textRegex = /《\/box》\n《text:([\s\S]+?),([\s\S]+?)》([\s\S]+?)《\/text》\n《id:r([\s\S]+?)e》/g;
+
+    const resMatches = [...HCodeBox.matchAll(resRegex)];
+    const nameMatches = [...HCodeBox.matchAll(nameRegex)];
+    const favMatches = [...HCodeBox.matchAll(favRegex)];
+    const textMatches = [...HCodeBox.matchAll(textRegex)];
+    console.log(resMatches);
+    console.log(nameMatches);
+    console.log(favMatches);
+    console.log(textMatches);
+
+    const listBox: itemBodyList[] = [];
+    const bRegex = /《b》([\s\S]+?)《\/b》/g;
+
+    for(let i = 0; i < resMatches.length; i++){
+        const res = resMatches[i][1];
+        const name = nameMatches[i][1];
+        const fav = favMatches[i][1];
+        const col = textMatches[i][1];
+        const fon = fontSize(textMatches[i][2]);
+        const text = textMatches[i][3];
+        const textRegex = [...text.matchAll(bRegex)];
+        const textRep = textRegex.length > 0 ? textRegex[0][1] : text;
+        const bol = textRegex.length > 0 ? 'bold' : 'normal';
+        console.log(`res:${res},name:${name},fav:${fav},col:${col},fon:${fon},text:${textRep},bol:${bol}`);
+        listBox.push({ res: Number(res), name: name, text: String(textRep), fav: Number(fav), col: col, fon: Number(fon), bol: bol });
+    }
+
     const allMatches = [...HCodeBox.matchAll(setRegex)];
     const testMatches = [...HCodeBox.matchAll(testRegex)];
     console.log(allMatches);
-    console.log(`testMatches:${testMatches}`);
-
-    const bRegex = /《b》([\s\S]+?)《\/b》/g;
+    console.log(testMatches);
   
     const list: itemBodyList[] = [];
   
@@ -288,7 +318,7 @@ ${setText()}
   
     list.push({ res: Number(res), name: name, text: String(textRep), fav: Number(fav), col: col, fon: Number(fon), bol: bol });
     }
-    return list;
+    return listBox;
   }; 
 
   export const RepTitles = (HCodeBox: string) => {
