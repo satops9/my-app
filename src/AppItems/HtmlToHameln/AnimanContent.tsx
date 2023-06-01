@@ -166,7 +166,7 @@ const BodysT: React.FC<BodysProps> = ({ res, name, text, fav, col, fon, bol, rem
       <span style={{ filter: 'opacity(0.0)' }} data-num="0">\</span>
       <span style={{ display: 'inline-block', fontSize: '1em' }}>
         <span style={{ color: '#0000ff' }}>
-          <span>{name} 2X/XX/XX XX:XX:XX</span>
+          <span style={{fontSize: `12pt`}}>{name} 2X/XX/XX XX:XX:XX</span>
           <span style={{ color: '#ffc513', margin: `0 15px 0 10px` }}>♡ {fav}</span>
           <div style={{display: `inline-flex`}}>
           <span style={{ backgroundColor: '#8080d2' }}>
@@ -230,7 +230,8 @@ const Header_H = (title: string, category: string) =>{
 《/box》《box:bor0.5,bg#0000ff,inline,overhidden》《center》《opacity:0》;《/opacity》《color:#FFF》${title}《/color》《opacity:0》;《/opacity》《/center》《/box》《box:inline,overhidden》《center》《opacity:0》.《/opacity》≫《opacity:0》;《/opacity》《/center》
 《/box》
 
-《text:s1.5》《b》${title}《/b》　《text:s1.5》《color:#ffd700》《b》☆《/b》《/color》《/text》《text:s1.2》《color:#0000ff》《font:u58》り《/font》《/color》《/text》《/text》`
+《text:s1.5》《b》${title}《/b》　《text:s1.5》《color:#ffd700》《b》☆《/b》《/color》《/text》《text:s1.2》《color:#0000ff》《font:u58》り《/font》《/color》《/text》《/text》
+`
 };
 
 // H_Code用のBody部分

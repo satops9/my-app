@@ -42,7 +42,7 @@ const [texts, setTexts] = useState("");
 // fav state | "いいね"数を格納するstate
 const [favs, setFavs] = useState(0);
 // color state | "いいね"の色を格納するstate
-const [cols, setCols] = useState("#000000");
+const [cols, setCols] = useState("");
 // font-size state | "いいね"のフォントサイズを格納するstate | 初期値は16
 const [fonts, setFonts] = useState(16);
 // b state | "いいね"の太字を格納するstate | 初期値はnormal
@@ -142,14 +142,19 @@ const changeFavsSet = (fav: number) => {
         setBolds("bold");
         }
     // favが1以上10未満の場合、colsの値とfont-sizeの値、boldsの値:boldを変更する
-    if(fav >= 2 && fav < 11){
-        setCols("#000000");
+    if(fav >= 5 && fav < 11){
+        setCols("");
         setFonts(18);
+        setBolds("bold");
+        }
+    if(fav >=2 && fav < 5){
+        setCols("");
+        setFonts(16)
         setBolds("bold");
         }
     // favが0の場合、colsの値とfont-sizeの値、boldsの値を変更する
     if(fav < 2){
-        setCols("#000000");
+        setCols("");
         setFonts(16);
         setBolds("normal");
         }
@@ -186,7 +191,7 @@ const submit = () => {
     setRes(res + 1);
     // favs,cols,fonts,boldsをリセット
     setFavs(0);
-    setCols("#000000");
+    setCols("");
     setFonts(16);
     setBolds("normal");
 }
@@ -270,7 +275,7 @@ useEffect(() => {
     setItemAll_H("");
     setTexts("");
     setFavs(0);
-    setCols("#000000");
+    setCols("");
     setFonts(16);
     setBolds("normal");
     // cookie削除
