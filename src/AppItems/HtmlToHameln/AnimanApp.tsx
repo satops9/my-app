@@ -347,23 +347,41 @@ useEffect(() => {
   // ボタンを押したときに読み込みする関数
   const handleFileRead = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
+    let check = false;
   
     if (file) {
       const reader = new FileReader();
-  
+
       reader.readAsText(file);
       reader.onload = (event) => {
+        //target.resultが空だった場合はalertを表示する
+        if (event.target?.result === "") {
+          alert("ファイルが空です");
+          return;
+        }
         const contents = event.target?.result as string;
-        const repText = RepTotals(contents);
         const repTitle = RepTitles(contents);
         const repCategory = RepCategory(contents);
-        setItemBody(repText);
         setTitles(repTitle);
         setCategory(repCategory);
+
+        const repText = RepTotals(contents);
+        // repTextがstringで返ってきたかをチェックする
+        if (typeof repText === "string") {
+          alert(repText);
+          return;
+        }
+        setItemBody(repText);
         // cookie保存
         Cookies.set("Animanbody", JSON.stringify(repText));
         Cookies.set("AnimanbodyTitle", JSON.stringify(titles));
+
+        check = true;
       };
+      // 読込が完了
+    if (check) {
+      alert("読込が完了しました");
+    }
     }
   };
 

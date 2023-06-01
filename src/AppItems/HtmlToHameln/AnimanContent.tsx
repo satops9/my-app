@@ -269,7 +269,7 @@ ${setText()}
     const resRegex = /《box》\n《id:r([\s\S]+?)》《bordercolor:#0000ff》《opacity:0》:《\/opacity》/g;
     const nameRegex = /《text:s0.8》《color:#0000ff》《b》([\s\S]+?)2X\/XX\/XX XX:XX:XX《\/b》《\/color》《\/text》/g;
     const favRegex = /《b》《color:#ffc513》♡ ([\s\S]+?)《\/color》《\/b》/g;
-    const textRegex = /《\/box》\n《text:([\s\S]+?),([\s\S]+?)》([\s\S]+?)《\/text》\n《id:r([\s\S]+?)e》/g;
+    const textRegex = /《\/box》\n《text:(.*?),(.*?)》([\s\S]+?)《\/text》\n《id:r(.*?)e》/g;
 
     const resMatches = [...HCodeBox.matchAll(resRegex)];
     const nameMatches = [...HCodeBox.matchAll(nameRegex)];
@@ -279,6 +279,22 @@ ${setText()}
     console.log(nameMatches);
     console.log(favMatches);
     console.log(textMatches);
+
+    // resMatches, nameMatches, favMatches, textMatchesのいずれかが空の場合はexit
+    // resMatches の場合は「レス番号にエラーがありました」｜ nameMatches の場合は「名前にエラーがありました」｜ favMatches の場合は「いいねにエラーがありました」｜ textMatches の場合は「本文にエラーがありました」
+    // というエラーを返す
+    if(resMatches.length === 0){
+        return `レス番号にエラーがありました`;
+    }
+    if(nameMatches.length === 0){
+        return `名前にエラーがありました`;
+    }
+    if(favMatches.length === 0){
+        return `いいねにエラーがありました`;
+    }
+    if(textMatches.length === 0){
+        return `本文にエラーがありました`;
+    }
 
     const listBox: itemBodyList[] = [];
     const bRegex = /《b》([\s\S]+?)《\/b》/g;
