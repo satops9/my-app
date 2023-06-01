@@ -261,6 +261,7 @@ ${setText()}
   export const RepTotals = (HCodeBox: string) => {
     // 1:res 3:name 4:favs 5:col 6:size 7:text
     const setRegex = /《id:r([\s\S]+?)》《bordercolor:#0000ff》《opacity:0》:《\/opacity》《text:s1.1》《color:#0000ff》《b》≫([\s\S]+?)《\/b》《\/color》《\/text》《opacity:0》:《\/opacity》《\/bordercolor》《opacity:0》:《\/opacity》《opacity:0》\《\/opacity》《text:s1.1》《color:#0000ff》《b》([\s\S]+?)2X\/XX\/XX XX:XX:XX《\/b》《\/color》《\/text》《opacity:0》\《\/opacity》《b》《color:#ffc513》♡ ([\s\S]+?)《\/color》《\/b》《opacity:0》\《\/opacity》 《text:s1.1》《bgcolor:#8080d2》《color:#fff》《opacity:0》:《\/opacity》報告《opacity:0》:《\/opacity》《\/color》《\/bgcolor》《\/text》《box:w100%,bo#7c7c88》《\/box》《\/box》\n《text:([\s\S]+?),([\s\S]+?)》([\s\S]+?)《\/text》\n《id:r([\s\S]+?)e》/g;
+    console.log(setRegex);
     const allMatches = [...HCodeBox.matchAll(setRegex)];
     console.log(allMatches);
 

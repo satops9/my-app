@@ -326,7 +326,7 @@ useEffect(() => {
   const pushUpLoad = () => {
     return (
       <>
-      <button onClick={handleDownload}>保存</button>
+      <button id="animanP" onClick={handleDownload}>保存</button>
       </>
     )
   }
