@@ -7,7 +7,7 @@ import "../ChatApp.css";
 import "./all.css"
 import useModal from '../useModal';
 import Cookies from 'js-cookie';
-import { Totals, Totals_H, RepTotals, RepTitles } from './AnimanContent'
+import { Totals, Totals_H, RepTotals, RepTitles,RepCategory } from './AnimanContent'
 
 export interface itemBodyList {
     res: number;
@@ -351,8 +351,10 @@ useEffect(() => {
         const contents = event.target?.result as string;
         const repText = RepTotals(contents);
         const repTitle = RepTitles(contents);
+        const repCategory = RepCategory(contents);
         setItemBody(repText);
         setTitles(repTitle);
+        setCategory(repCategory);
         // cookie保存
         Cookies.set("Animanbody", JSON.stringify(repText));
         Cookies.set("AnimanbodyTitle", JSON.stringify(titles));

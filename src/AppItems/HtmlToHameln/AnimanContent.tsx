@@ -225,9 +225,9 @@ const Header_H = (title: string, category: string) =>{
 《/box》
 《/box》
 《hr》
-《box:bor0.5,bg#0000ff,inline,overhidden》《center》《opacity:0》\《/opacity》《color:#FFF》TOP《/color》《opacity:0》\《/opacity》《/center》《/box》《box:inline,overhidden》《center》《opacity:0》.《/opacity》≫《opacity:0》\《/opacity》《/center》
-《/box》《box:bor0.5,bg#0000ff,inline,overhidden》《center》《opacity:0》\《/opacity》《color:#FFF》${category}《/color》《opacity:0》\《/opacity》《/center》《/box》《box:inline,overhidden》《center》《opacity:0》.《/opacity》≫《opacity:0》\《/opacity》《/center》
-《/box》《box:bor0.5,bg#0000ff,inline,overhidden》《center》《opacity:0》\《/opacity》《color:#FFF》${title}《/color》《opacity:0》\《/opacity》《/center》《/box》《box:inline,overhidden》《center》《opacity:0》.《/opacity》≫《opacity:0》\《/opacity》《/center》
+《box:bor0.5,bg#0000ff,inline,overhidden》《center》《opacity:0》:《/opacity》《color:#FFF》TOP《/color》《opacity:0》:《/opacity》《/center》《/box》《box:inline,overhidden》《center》《opacity:0》.《/opacity》≫《opacity:0》\《/opacity》《/center》
+《/box》《box:bor0.5,bg#0000ff,inline,overhidden》《center》《opacity:0》:《/opacity》《color:#FFF》${category}《/color》《opacity:0》:《/opacity》《/center》《/box》《box:inline,overhidden》《center》《opacity:0》.《/opacity》≫《opacity:0》:《/opacity》《/center》
+《/box》《box:bor0.5,bg#0000ff,inline,overhidden》《center》《opacity:0》;《/opacity》《color:#FFF》${title}《/color》《opacity:0》;《/opacity》《/center》《/box》《box:inline,overhidden》《center》《opacity:0》.《/opacity》≫《opacity:0》;《/opacity》《/center》
 《/box》
 
 《text:s1.5》《b》${title}《/b》　《text:s1.5》《color:#ffd700》《b》☆《/b》《/color》《/text》《text:s1.2》《color:#0000ff》《font:u58》り《/font》《/color》《/text》《/text》`
@@ -251,7 +251,7 @@ const Body_H = (name: string, text: string, res: number, col:string, fav: number
 
     return `
 《box》
-《id:r${res}》《bordercolor:#0000ff》《opacity:0》:《/opacity》《text:s1.1》《color:#0000ff》《b》≫${res}《/b》《/color》《/text》《opacity:0》:《/opacity》《/bordercolor》《opacity:0》:《/opacity》《opacity:0》\《/opacity》《text:s0.8》《color:#0000ff》《b》${name}2X/XX/XX XX:XX:XX《/b》《/color》《/text》《opacity:0》\《/opacity》《b》《color:#ffc513》♡ ${fav}《/color》《/b》《opacity:0》\《/opacity》 《text:s1.1》《bgcolor:#8080d2》《color:#fff》《opacity:0》:《/opacity》報告《opacity:0》:《/opacity》《/color》《/bgcolor》《/text》《box:w100%,bo#7c7c88》《/box》《/box》
+《id:r${res}》《bordercolor:#0000ff》《opacity:0》:《/opacity》《text:s1.1》《color:#0000ff》《b》≫${res}《/b》《/color》《/text》《opacity:0》:《/opacity》《/bordercolor》《opacity:0》:《/opacity》《opacity:0》:《/opacity》《text:s0.8》《color:#0000ff》《b》${name}2X/XX/XX XX:XX:XX《/b》《/color》《/text》《opacity:0》:《/opacity》《b》《color:#ffc513》♡ ${fav}《/color》《/b》《opacity:0》:《/opacity》 《text:s1.1》《bgcolor:#8080d2》《color:#fff》《opacity:0》:《/opacity》報告《opacity:0》:《/opacity》《/color》《/bgcolor》《/text》《box:w100%,bo#7c7c88》《/box》《/box》
 ${setText()}
 《id:r${res}e》
 `
@@ -261,7 +261,7 @@ ${setText()}
   export const RepTotals = (HCodeBox: string) => {
     console.log(`HCodeBox:${HCodeBox}`);
     // 1:res 3:name 4:favs 5:col 6:size 7:text
-    const setRegex = /《id:r([\s\S]+?)》《bordercolor:#0000ff》《opacity:0》:《\/opacity》《text:s1.1》《color:#0000ff》《b》≫([\s\S]+?)《\/b》《\/color》《\/text》《opacity:0》:《\/opacity》《\/bordercolor》《opacity:0》:《\/opacity》《opacity:0》\《\/opacity》《text:s0.8》《color:#0000ff》《b》([\s\S]+?)2X\/XX\/XX XX:XX:XX《\/b》《\/color》《\/text》《opacity:0》\《\/opacity》《b》《color:#ffc513》♡ ([\s\S]+?)《\/color》《\/b》《opacity:0》\《\/opacity》 《text:s1.1》《bgcolor:#8080d2》《color:#fff》《opacity:0》:《\/opacity》報告《opacity:0》:《\/opacity》《\/color》《\/bgcolor》《\/text》《box:w100%,bo#7c7c88》《\/box》《\/box》\n《text:([\s\S]+?),([\s\S]+?)》([\s\S]+?)《\/text》\n《id:r([\s\S]+?)e》/g;
+    const setRegex = /《id:r([\s\S]+?)》《bordercolor:#0000ff》《opacity:0》:《\/opacity》《text:s1.1》《color:#0000ff》《b》≫([\s\S]+?)《\/b》《\/color》《\/text》《opacity:0》:《\/opacity》《\/bordercolor》《opacity:0》:《\/opacity》《opacity:0》:《\/opacity》《text:s0.8》《color:#0000ff》《b》([\s\S]+?)2X\/XX\/XX XX:XX:XX《\/b》《\/color》《\/text》《opacity:0》:《\/opacity》《b》《color:#ffc513》♡ ([\s\S]+?)《\/color》《\/b》《opacity:0》:《\/opacity》 《text:s1.1》《bgcolor:#8080d2》《color:#fff》《opacity:0》:《\/opacity》報告《opacity:0》:《\/opacity》《\/color》《\/bgcolor》《\/text》《box:w100%,bo#7c7c88》《\/box》《\/box》\n《text:([\s\S]+?),([\s\S]+?)》([\s\S]+?)《\/text》\n《id:r([\s\S]+?)e》/g;
     const testRegex = /《box》\n《id:r([\s\S]+?)》《bordercolor:#0000ff》/g;
     console.log(setRegex);
 
@@ -318,7 +318,7 @@ ${setText()}
   
     list.push({ res: Number(res), name: name, text: String(textRep), fav: Number(fav), col: col, fon: Number(fon), bol: bol });
     }
-    return listBox;
+    return list;
   }; 
 
   export const RepTitles = (HCodeBox: string) => {
@@ -326,4 +326,11 @@ ${setText()}
     const titleMatch = [...HCodeBox.matchAll(titleRgex)];
     const titles: string= titleMatch ? titleMatch[0][1] : ``;
     return titles;
+  }
+
+  export const RepCategory = (HCodeBox: string) => {
+    const categoryRgex = /《box:bor0.5,bg#0000ff,inline,overhidden》《center》《opacity:0》:《\/opacity》《color:#FFF》([\s\S]+?)《\/color》《opacity:0》:《\/opacity》《\/center》《\/box》/g;
+    const categoryMatch = [...HCodeBox.matchAll(categoryRgex)];
+    const category: string= categoryMatch ? categoryMatch[1][1] : `その他`;
+    return category;
   }
