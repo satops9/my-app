@@ -376,6 +376,7 @@ useEffect(() => {
             <TabList>
               <Tab>View</Tab>
               <Tab>H-Code</Tab>
+              <Tab>スクショ用</Tab>
             </TabList>
             <TabPanel>
             <div className="outBox_L" id="views" ref={selectDivRef}>
@@ -385,6 +386,11 @@ useEffect(() => {
             <TabPanel>
             <div className="outBox_L" id="view_H" ref={selectDivRef}>
             <Totals_H title={titles} removeItem={removeItem} listUp={itemBody} setListUp={setItemAll_H} category={category} />
+            </div>
+            </TabPanel>
+            <TabPanel>
+            <div className="outBox_L" style={{height: `100%`}} id="view_S" ref={selectDivRef}>
+            <Totals title={titles} removeItem={removeItem} listUp={itemBody} setListUp={setItemAll_H} category={category} />
             </div>
             </TabPanel>
         </Tabs>
@@ -408,7 +414,7 @@ useEffect(() => {
           <span style={{fontSize:"16pt", textAlign:"center"}}>♡</span>
           <input type="number" min={0} className="C_numb" style={{fontSize: `16pt`}} onChange={favsHandleChange} value={favs} />
           <div style={{backgroundColor: `#fff`, padding: `2px`}}>
-          <span style={{width: `100%`, height: `100%`, fontSize:fonts, color:cols, fontWeight:bolds, textAlign:"center"}}>{favs}</span>
+          <span style={{width: `100%`, height: `100%`, fontSize:fonts, color:cols?cols:`#000`, fontWeight:bolds, textAlign:"center"}}>{favs}</span>
           </div>
           </div>
           <div className="C_menu3">
