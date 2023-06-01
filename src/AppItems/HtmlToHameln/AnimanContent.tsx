@@ -319,7 +319,7 @@ ${setText()}
   
     list.push({ res: Number(res), name: name, text: String(textRep), fav: Number(fav), col: col, fon: Number(fon), bol: bol });
     }
-    return list;
+    return listBox;
   }; 
 
   export const RepTitles = (HCodeBox: string) => {
