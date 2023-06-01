@@ -231,13 +231,13 @@ useEffect(() => {
                   <p style={{ fontSize: "0.8em" }}>※注意※ 「名前」には複数設定できます。</p>
                   <p style={{ fontSize: "0.8em" }}>複数設定する場合は、「,」で区切ってください。</p>
                   <div className="C_menu2">
-                      名前<input type="text" id="C_title2" onBlur={(e) => optionNameHandleChange(e)} defaultValue={names} />
+                      名前<input type="text" className="C_title2" onBlur={(e) => optionNameHandleChange(e)} defaultValue={names} />
                   </div>
                   <div className="C_menu2">
-                      カテゴリ<input type="text" id="C_title2" onBlur={(e) => categoryHandleChange(e)} defaultValue={category} /><br></br>
+                      カテゴリ<input type="text" className="C_title2" onBlur={(e) => categoryHandleChange(e)} defaultValue={category} /><br></br>
                   </div>
                   <div className="C_menu2">
-                      スレタイ<input type="text" id="C_title2" onBlur={(e) => titleNameHandleChange(e)} defaultValue={titles} /><br></br>
+                      スレタイ<input type="text" className="C_title2" onBlur={(e) => titleNameHandleChange(e)} defaultValue={titles} /><br></br>
                   </div>
               </div>
           </Modal2>
@@ -388,9 +388,9 @@ useEffect(() => {
           <br></br>
           {btn_return()} {copyModal()} {rsetModal()} {pushDownLoad()} {pushUpLoad()} <button style={{background: "#4ae09a", color: "#000"}} onClick={submit}>投稿</button>
           <div className="C_menu">
-        <input type="number" id="C_numb" onChange={(e) => resHandleChange(e)} value={res} />
+        <input type="number" className="C_numb" onChange={(e) => resHandleChange(e)} value={res} />
           <select
-            id="C_title"
+            className="C_title"
             onChange={handleChange}>
             {optionNames.map((options) => (
               <option key={options.value} value={options.value} selected={options.value === optionNames[0].value}>
@@ -398,10 +398,10 @@ useEffect(() => {
               </option>
             ))}
           </select>
-          <span style={{fontSize:"20px", textAlign:"center"}}>♡</span>
-          <input type="number" min={0} id="C_numb" onChange={favsHandleChange} value={favs} />
+          <span style={{fontSize:"16pt", textAlign:"center"}}>♡</span>
+          <input type="number" min={0} className="C_numb" style={{fontSize: `16pt`}} onChange={favsHandleChange} value={favs} />
           <div style={{backgroundColor: `#fff`, padding: `2px`}}>
-          <span style={{fontSize:fonts, color:cols, fontWeight:bolds, textAlign:"center"}}>♡ {favs}</span>
+          <span style={{width: `100%`, height: `100%`, fontSize:fonts, color:cols, fontWeight:bolds, textAlign:"center"}}>{favs}</span>
           </div>
           </div>
           <div className="C_menu3">

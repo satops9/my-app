@@ -272,9 +272,9 @@ const App: React.FC = () => {
           <br></br>
           {btn_return()} {copyModal()} {rsetModal()}
           <div className="C_menu">
-          <input type="text" id="C_numb"   onChange={(e) => handleNumbChange(e, setChatNum)}  value={chatNum}/>:
+          <input type="text" className="C_numb"   onChange={(e) => handleNumbChange(e, setChatNum)}  value={chatNum}/>:
           <select
-            id="C_title"
+            className="C_title"
             onChange={handleChange} >
             {optionsTitleSet.map((option) => (
               <option key={option.value} value={option.value} selected={option.value === optionsTitleSet[0].value}>
@@ -283,7 +283,7 @@ const App: React.FC = () => {
             ))}
           </select>
           <select
-            id="C_id"
+            className="C_id"
             onChange={(e) => handleIdsChange(e, setChatId)}>
             {optionsIdSet.map((option) => (
               <option key={option.value} value={option.value} selected={option.value === chatId}>

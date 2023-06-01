@@ -197,6 +197,7 @@ const language = isJapanese ? 'Japanese' : 'English';
   // 置換処理
   export const RepTotals = (HCodeBox: string) => {
     const boxRegex = /《(left|right)》《box:(.*?),bor0.5》([\s\S]+?)《\/box》《\/(left|right)》/g;
+    console.log(`boxRegex:${boxRegex}`);
     const textRegex = /《text:(.+?)》([\s\S]+?)《\/text》/g;
     const youBase = /《left》《box:m0.2》《text:s0.7》《white》([\s\S]+?)《\/white》《\/text》《\/box》《\/left》/g;
     const flagsBase = /《right》《text:s0.7》《white》既読《\/white》《\/text》《\/right》/;

@@ -23,7 +23,7 @@
     margin:2px; padding: auto;
 }
 
-#C_numb {
+.C_numb {
     display:inline-flex;
     margin-right: 8px;
     border:1px solid rgb(44, 90, 92);
@@ -32,7 +32,7 @@
     width: 30px;
 }
 
-#C_title {
+.C_title {
     display:inline-flex;
     margin-right: 8px;
     margin-left: 8px;
@@ -41,7 +41,7 @@
     width: 200px;
 }
 
-#C_title2 {
+.C_title2 {
     display:inline-flex;
     margin-right: 8px;
     margin-left: 8px;
@@ -50,7 +50,7 @@
     width: 200px;
 }
 
-#C_id {
+.C_id {
     display:inline-flex;
     margin-right: 16px;
     margin-left: 8px;
@@ -80,7 +80,7 @@
         overflow: hidden;
     }
     
-    #C_numb {
+    .C_numb {
         display:inline-flex;
         margin-right: 3px;
         border:1px solid rgb(44, 90, 92);
@@ -89,7 +89,7 @@
         width: 30px;
     }
     
-    #C_title {
+    .C_title {
         display:inline-flex;
         margin-right: 3px;
         margin-left: 3px;
@@ -98,7 +98,7 @@
         width: 180px;
     }
     
-    #C_id {
+    .C_id {
         display:inline-flex;
         margin-right: 6px;
         margin-left: 3px;
