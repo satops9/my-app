@@ -266,8 +266,8 @@ ${setText()}
     console.log(setRegex);
 
     const resRegex = /《box》\n《id:r([\s\S]+?)》《bordercolor:#0000ff》《opacity:0》:《\/opacity》/g;
-    const nameRegex = /《text:s0.8》《color:#0000ff》《b》([\s\S]+?)2X\/XX\/XX XX:XX:XX《\/b》《\/color》《\/text》《opacity:0》\《\/opacity》/g;
-    const favRegex = /《b》《color:#ffc513》♡ ([\s\S]+?)《\/color》《\/b》《opacity:0》\《\/opacity》/g;
+    const nameRegex = /《text:s0.8》《color:#0000ff》《b》([\s\S]+?)2X\/XX\/XX XX:XX:XX《\/b》《\/color》《\/text》/g;
+    const favRegex = /《b》《color:#ffc513》♡ ([\s\S]+?)《\/color》《\/b》/g;
     const textRegex = /《\/box》\n《text:([\s\S]+?),([\s\S]+?)》([\s\S]+?)《\/text》\n《id:r([\s\S]+?)e》/g;
 
     const resMatches = [...HCodeBox.matchAll(resRegex)];
