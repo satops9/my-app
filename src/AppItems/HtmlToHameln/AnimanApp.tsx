@@ -8,7 +8,6 @@ import "./all.css"
 import useModal from '../useModal';
 import Cookies from 'js-cookie';
 import { Totals, Totals_H, RepTotals, RepTitles,RepCategory } from './AnimanContent'
-import html2canvas from "html2canvas";
 
 export interface itemBodyList {
     res: number;
@@ -369,46 +368,6 @@ useEffect(() => {
   };
 
   const fileInputRef = React.useRef<HTMLInputElement>(null);
-
-  const saveAsImage = (uri:string) => {
-    const downloadLink = document.createElement("a");
-  
-    if (typeof downloadLink.download === "string") {
-      downloadLink.href = uri;
-  
-      // ファイル名
-      downloadLink.download = "animan.png";
-  
-      // Firefox では body の中にダウンロードリンクがないといけないので一時的に追加
-      //document.body.appendChild(downloadLink);
-  
-      // ダウンロードリンクが設定された a タグをクリック
-      downloadLink.click();
-  
-      // Firefox 対策で追加したリンクを削除しておく
-      //document.body.removeChild(downloadLink);
-    } else {
-      window.open(uri);
-    }
-  }
-  
-  const onClickExport = () => {
-    // 画像に変換する component の id を指定
-    const targetId = "views";
-    const target = document.getElementById(targetId);
-  
-    if (target) {
-      html2canvas(target).then(canvas => {
-        const targetImgUri = canvas.toDataURL("image/png");
-        saveAsImage(targetImgUri);
-      });
-    } else {
-      console.error(`要素ID "${targetId}" が見つかりません。`);
-    }
-  }
-  
-  const ExportButton = () => <button onClick={() => onClickExport()}>画像</button>;  
-  
     
     return(
         <div className="weapper">
@@ -434,7 +393,7 @@ useEffect(() => {
         <div className="MainCont">
         <footer>
           <br></br>
-          {btn_return()} {copyModal()} {rsetModal()} {pushDownLoad()} {pushUpLoad()} {ExportButton()} <button style={{background: "#4ae09a", color: "#000"}} onClick={submit}>投稿</button>
+          {btn_return()} {copyModal()} {rsetModal()} {pushDownLoad()} {pushUpLoad()} <button style={{background: "#4ae09a", color: "#000"}} onClick={submit}>投稿</button>
           <div className="C_menu">
         <input type="number" className="C_numb" onChange={(e) => resHandleChange(e)} value={res} />
           <select
