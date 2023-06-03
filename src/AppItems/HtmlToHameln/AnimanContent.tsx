@@ -208,7 +208,7 @@ const BodysT: React.FC<BodysProps> = ({ res, name, text, fav, col, fon, bol, rem
             paragraphs2 = matchTexts[0].split('\n');
             texts2 = matchTexts[1][0] === undefined ? matchTexts[0]: matchTexts[1][0];
             console.log(`texts2:${texts2}`)
-            console.log(`matchTexts[0][0]:${matchTexts[0]}`)
+            console.log(`matchTexts[0][0]:${matchTexts[1][0]}`)
             const codes = textRegex(texts2);
             console.log(`codes:${codes}`)
 
@@ -224,9 +224,11 @@ const BodysT: React.FC<BodysProps> = ({ res, name, text, fav, col, fon, bol, rem
                 }
               });
 
-              // stringからJSX.Elementを生成するための処理
+              if(matchTexts[1][0] !== undefined){
+                // stringからJSX.Elementを生成するための処理
                 const jsxElement = <div dangerouslySetInnerHTML={{ __html: codes }} />;
                 texts.push(jsxElement);
+              }
         }
       
         return texts;
