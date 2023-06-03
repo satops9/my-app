@@ -8,6 +8,7 @@ import "./all.css"
 import useModal from '../useModal';
 import Cookies from 'js-cookie';
 import { Totals, Totals_H, RepTotals, RepTitles,RepCategory } from './AnimanContent'
+import { replacements, H_replacements, H_code, N_code } from "./RepContent";
 
 export interface itemBodyList {
     res: number;
@@ -340,14 +341,17 @@ useEffect(() => {
   const handleDownload = () => {
     const element = document.createElement('a');
     element.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(itemAll_H);
-    element.download = 'satop_特殊タグ_LINE.txt';
+    element.download = 'satop_特殊タグ_Animan.txt';
     element.click();
   }
 
   // ボタンを押したときに読み込みする関数
   const handleFileRead = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    let check = false;
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ""; // ファイル選択をリセットする
+    }
   
     if (file) {
       const reader = new FileReader();
@@ -376,13 +380,9 @@ useEffect(() => {
         Cookies.set("Animanbody", JSON.stringify(repText));
         Cookies.set("AnimanbodyTitle", JSON.stringify(titles));
 
-        check = true;
+        alert("読込が完了しました");
+      }
       };
-      // 読込が完了
-    if (check) {
-      alert("読込が完了しました");
-    }
-    }
   };
 
   const fileInputRef = React.useRef<HTMLInputElement>(null);

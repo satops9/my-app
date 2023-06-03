@@ -63,14 +63,28 @@ export const Totals: React.FC<TotalsProps> = ({ title, removeItem, listUp }) => 
   };
 
   const BodysT: React.FC<BodysProps> = ({ name, text, flag, removeItem, index }) => {
-    const renderTexts = (): JSX.Element[] => {
+    const renderTexts = (name:string): JSX.Element[] => {
       const paragraphs: string[] = text.split('\n');
       const texts: JSX.Element[] = [];
+
+      // 特定の条件満たしたらstyleをstyle={{}}に追加する
+      // textの文字数が21文字以上だったらwidthとmax-widthを設定する
+      // 言語は比較しない
+      let css = {};
+      if(text.length > 21){
+        if(name === `あなた`){
+          css = { maxWidth: `100%`, width: `20em`, overflowWrap: `break-word`,margin: '0em 0.2em', textAlign: `left`}
+        }else{
+          css = { maxWidth: `100%`, width: `17em`, overflowWrap: `break-word`,margin: '0em 0.2em', textAlign: `left`}
+        }
+      }else{
+        css = { overflowWrap: `break-word`,margin: '0em 0.2em', textAlign: `left`};
+      }
     
       paragraphs.forEach((paragraph: string, index: number) => {
         if (paragraph.trim() !== '') {
           texts.push(
-            <p key={index} style={{ overflowWrap: `break-word`,margin: '0em 0.2em', textAlign: `left`}}>
+            <p key={index} style={{ ...css }}>
               {paragraph}
             </p>
           );
@@ -87,13 +101,13 @@ export const Totals: React.FC<TotalsProps> = ({ title, removeItem, listUp }) => 
         <>
           {/* ここから自分のターン */}
           <tr>
-            <td style={{ wordWrap: `break-word`, position: `relative`, height: h, textAlign: "right" }}>
+            <td style={{ overflowWrap: `break-word`, position: `relative`, height: h, textAlign: "right" }}>
               <button 
             style={{backgroundColor: `red`, position: `absolute`, top: `0`, right: `-0.5em`, padding: `0.5px`}}
             onClick={() => removeItem(index)}>×</button>
-            <div style = {{wordWrap: `break-word`,maxWidth: `100%`, display:`inner-flex`, float: 'right',}}>
+            <div style = {{ wordWrap: `break-word`,maxWidth: `100%`, display:`inner-flex`, float: 'right',}}>
             <div style={{ wordWrap: `break-word`, maxWidth: `80%`,float: 'right', backgroundColor: '#8de055', borderRadius: '0.5em', padding: '2px 10px' }}>
-  {renderTexts()}</div>
+  {renderTexts(name)}</div>
   <div style={{marginTop: `auto`, textAlign: `right`, float: `right`}}>{flags(1,flag)}</div>
   </div>
             </td>
@@ -115,7 +129,7 @@ export const Totals: React.FC<TotalsProps> = ({ title, removeItem, listUp }) => 
                 {name}
               </span>
               <br></br>
-              <div style={{float: "left", backgroundColor: `#ffffff`, borderRadius: `0.5em`, padding: `2px 10px`}}>{renderTexts()}</div>
+              <div style={{float: "left", backgroundColor: `#ffffff`, borderRadius: `0.5em`, padding: `2px 10px`}}>{renderTexts(name)}</div>
               <br />
             </td>
           </tr>
@@ -174,22 +188,40 @@ const language = isJapanese ? 'Japanese' : 'English';
           return `《right》《box:w30%,inline,p0.2,m0.2,bg#8de055,bor0.5》《box:w100%,inline》${text}《/box》《/box》《/right》${flag_t}
 `;
         }else{
-          return `《right》《box:p0.2,m0.2,bg#8de055,bor0.5》${text}《/box》《/right》${flag_t}
+          return `《right》《box:p0.2,m0.2,bg#8de055,bor0.5》《left》${text}《/left》《/box》《/right》${flag_t}
 `;
         }
       }else{
-        return `《right》《box:p0.2,m0.2,bg#8de055,bor0.5》${text}《/box》《/right》${flag_t}
-`;
+        if(text.length > 21){
+          return `《right》《box:w20,p0.2,m0.2,bg#8de055,bor0.5》《left》${text}《/left》《/box》《/right》${flag_t}
+  `;
+        }else{
+          return `《right》《box:p0.2,m0.2,bg#8de055,bor0.5》《left》${text}《/left》《/box》《/right》${flag_t}
+  `;
+        }
       }
         
     }else{
       if(language === "English"){
-        return `《left》《box:w30%,inline,p0.2,m0.2,bg#ffffff,bor0.5》《box:w100%,inline》${text}《/box》《/box》《/left》
+        if(text.length > 21){
+          return `《left》《box:m0.2》《text:s0.7》《white》${name}《/white》《/text》《/box》《/left》
+《left》《box:w20,inline,p0.2,m0.2,bg#ffffff,bor0.5》《box:w100%,inline》${text}《/box》《/box》《/left》
+`;          
+        }else{
+          return `《left》《box:m0.2》《text:s0.7》《white》${name}《/white》《/text》《/box》《/left》
+《left》《box:p0.2,bg#ffffff,bor0.5》${text}《/box》《/left》
 `;
+        }
       }else{
+        if(text.length > 21){
+          return `《left》《box:m0.2》《text:s0.7》《white》${name}《/white》《/text》《/box》《/left》
+《left》《box:w20,p0.2,bg#ffffff,bor0.5》${text}《/box》《/left》
+`;
+        }else{
         return `《left》《box:m0.2》《text:s0.7》《white》${name}《/white》《/text》《/box》《/left》
 《left》《box:p0.2,bg#ffffff,bor0.5》${text}《/box》《/left》
 `;
+        }
       }
     }
 }
@@ -198,34 +230,46 @@ const language = isJapanese ? 'Japanese' : 'English';
   export const RepTotals = (HCodeBox: string) => {
     const boxRegex = /《(left|right)》《box:(.*?),bor0.5》([\s\S]+?)《\/box》《\/(left|right)》/g;
     console.log(`boxRegex:${boxRegex}`);
-    const textRegex = /《text:(.+?)》([\s\S]+?)《\/text》/g;
     const youBase = /《left》《box:m0.2》《text:s0.7》《white》([\s\S]+?)《\/white》《\/text》《\/box》《\/left》/g;
     const flagsBase = /《right》《text:s0.7》《white》既読《\/white》《\/text》《\/right》/;
-  
+    const alineRegex = /《left》([\s\S]+?)《\/left》/g;
+    const alineRegexF = /《box:w100%,inline》([\s\S]+?)《\/box》/g;
+
     const boxMatches = [...HCodeBox.matchAll(boxRegex)];
-    const textMatches = [...HCodeBox.matchAll(textRegex)];
     const youMatches = [...HCodeBox.matchAll(youBase)];
     const flags = HCodeBox.match(flagsBase);
-  
-    console.log(`boxMatches:${boxMatches}`);
-    console.log(`textMatches:${textMatches}`);
-    console.log(`youMatches:${youMatches}`);
   
     const list: itemBodyList[] = [];
     const myName = "あなた";
     const you = youMatches.length > 0 ? youMatches[0][1] : "";
-    console.log(`you:${you}`);
     const flagsRep = flags ? true : false;
   
     for (const match of boxMatches) {
       const alignment = match[1];
       const content = match[3];
+      const textMatchsF = [...content.matchAll(alineRegexF)];
+      let textMatchs = textMatchsF;
+      // textMatchsFがlength > 0 の場合は、textMatchsF[0][1]をalineRegexで検索し、存在する場合はtextMatchs[0][1]をalineRegex検索したものを返す
+      if(textMatchsF.length > 0){
+        if([...textMatchsF[0][1].matchAll(alineRegex)].length > 0){
+          textMatchs = [...textMatchsF[0][1].matchAll(alineRegex)];
+        }else{
+          textMatchs = textMatchsF;
+        }
+      }else{
+        if([...content.matchAll(alineRegex)].length > 0){
+          textMatchs = [...content.matchAll(alineRegex)];
+        }else{
+          textMatchs = [];
+        }
+      }
+      const text = textMatchs.length > 0 ? textMatchs[0][1] : content;
       console.log(`match1:${match[1]},match2:${match[2]},match3:${match[3]},match4:${match[4]}`);
   
       if (alignment === "right") {
-        list.push({ name: myName, text: content, flag: flagsRep });
+        list.push({ name: myName, text: text, flag: flagsRep });
       } else if (alignment === "left") {
-        list.push({ name: you, text: content, flag: false });
+        list.push({ name: you, text: text, flag: false });
       }
     }
   

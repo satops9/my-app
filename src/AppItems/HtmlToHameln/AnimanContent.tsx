@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import { itemBodyList } from './AnimanApp';
+import { replacements, H_replacements, getMatchTexts, Regs } from "./RepContent";
 
 export interface TotalsProps {
     category: string;
@@ -55,7 +56,47 @@ export interface TotalsProps {
         return eFont;
     }
 
-export const Totals: React.FC<TotalsProps> = ({ category, title, removeItem, listUp, setListUp  }) => (
+// Input textarea function key item Plus SetUp
+// 特殊タグをリアルタイムで変換するための関数
+function replaceContent(inputs: string): string {
+    let output = inputs;
+    replacements.forEach(({ search, replace }) => {
+      output = output.replace(new RegExp(search, 'g'), replace);
+    });
+  
+    console.log(`output:${output}`);
+    return output;
+  }
+
+  // ハーメルン用
+  function H_replaceContent(inputs: string): string {
+    let output = inputs;
+    H_replacements.forEach(({ search, replace }) => {
+      output = output.replace(new RegExp(search, 'g'), replace);
+    });
+    return output;
+  }
+
+// texts を正規表現で置換
+const textRegex = (content: string) => {
+  const repText = replaceContent(content);
+  return repText;
+}
+
+// texts を正規表現で置換
+const textHRegex = (content: string) => {
+  const repText = H_replaceContent(content);
+  return repText;
+}
+
+export const Totals: React.FC<TotalsProps> = ({ category, title, removeItem, listUp, setListUp  }) => {
+    useEffect(() => {
+        const all = `${Header_H(title ,category)}
+        ${listUp.map((body) => Body_H(body.name, textHRegex(body.text), body.res, body.col, body.fav, body.fon, body.bol)).join('')}`;
+        setListUp(all);
+      }, [title, listUp]);
+
+    return (
     <>
         <div style={{ boxSizing: 'border-box', whiteSpace: 'normal', position: 'relative', overflow: 'hidden !important', width: '100%', maxWidth: '100%', height: '3em', maxHeight: '100%', lineHeight: '1.6em' }}>
             <div style={{ boxSizing: 'border-box', whiteSpace: 'normal', position: 'absolute', left: '0em', top: '0em', width: '100%', maxWidth: '100%', lineHeight: '2em', overflow: 'hidden' }}>
@@ -135,24 +176,58 @@ export const Totals: React.FC<TotalsProps> = ({ category, title, removeItem, lis
             </React.Fragment>
         ))}
     </>
-)
+    )
+        }
 
 const BodysT: React.FC<BodysProps> = ({ res, name, text, fav, col, fon, bol, removeItem, index }) => {
     const renderTexts = (): JSX.Element[] => {
         const paragraphs: string[] = text.split('\n');
+        let paragraphs2: string[] = [];
         const texts: JSX.Element[] = [];
-      
-        paragraphs.forEach((paragraph: string, index: number) => {
-          if (paragraph.trim() !== '') {
-            texts.push(
-              <p key={index} style={{ margin: '0em 0.5em', fontSize: fon, fontWeight: bol, color: col }}>
-                {paragraph}
-              </p>
-            );
-          } else if (index !== paragraphs.length - 1) {
-            texts.push(<br key={index} />);
-          }
-        });
+        let texts2: string = ``;
+        // getMatchTextsを使用する 引数にはtextとregsを渡す
+        if(text === ``){
+            console.log(`error${text}`);
+            return texts;
+        }
+        const matchTexts = getMatchTexts(text, Regs.map((reg) => reg.reg));
+        console.log(`matchTexts:${matchTexts}`)
+        if(matchTexts.length < 0 || matchTexts === null || matchTexts === undefined){
+            paragraphs.forEach((paragraph: string, index: number) => {
+                if (paragraph.trim() !== '') {
+                  texts.push(
+                    <p key={index} style={{ margin: '0em 0.5em', fontSize: fon, fontWeight: bol, color: col }}>
+                      {paragraph}
+                    </p>
+                  );
+                } else if (index !== paragraphs.length - 1) {
+                  texts.push(<br key={index} />);
+                }
+              });
+        }else{
+            paragraphs2 = matchTexts[0].split('\n');
+            texts2 = matchTexts[1][0] === undefined ? matchTexts[0]: matchTexts[1][0];
+            console.log(`texts2:${texts2}`)
+            console.log(`matchTexts[0][0]:${matchTexts[0]}`)
+            const codes = textRegex(texts2);
+            console.log(`codes:${codes}`)
+
+            paragraphs2.forEach((paragraph2: string, index: number) => {
+                if (paragraph2.trim() !== '') {
+                  texts.push(
+                    <p key={index} style={{ margin: '0em 0.5em', fontSize: fon, fontWeight: bol, color: col }}>
+                      {paragraph2}
+                    </p>
+                  );
+                } else if (index !== paragraphs.length - 1) {
+                  texts.push(<br key={index} />);
+                }
+              });
+
+              // stringからJSX.Elementを生成するための処理
+                const jsxElement = <div dangerouslySetInnerHTML={{ __html: codes }} />;
+                texts.push(jsxElement);
+        }
       
         return texts;
       };
@@ -193,7 +268,7 @@ const BodysT: React.FC<BodysProps> = ({ res, name, text, fav, col, fon, bol, rem
 export const Totals_H: React.FC<TotalsProps> = ({ category, title, listUp, setListUp }) => {
     useEffect(() => {
       const all = `${Header_H(title ,category)}
-      ${listUp.map((body) => Body_H(body.name, body.text, body.res, body.col, body.fav, body.fon, body.bol)).join('')}`;
+      ${listUp.map((body) => Body_H(body.name, textHRegex(body.text), body.res, body.col, body.fav, body.fon, body.bol)).join('')}`;
       setListUp(all);
     }, [title, listUp]);
           return (
@@ -201,7 +276,7 @@ export const Totals_H: React.FC<TotalsProps> = ({ category, title, listUp, setLi
           {Header_H(title, category)}
             {listUp.map((body, index) => (
                 <React.Fragment key={index}>
-                {Body_H(body.name, body.text, body.res, body.col, body.fav, body.fon, body.bol)}
+                {Body_H(body.name, textHRegex(body.text), body.res, body.col, body.fav, body.fon, body.bol)}
                 </React.Fragment>
             ))}
           </>)

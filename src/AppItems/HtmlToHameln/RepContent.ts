@@ -9,6 +9,60 @@ type Code_H = {
     value: string; // コード
 }
 
+// 正規表現を格納するtype
+export type Reg = {
+    reg: RegExp;
+}
+
+export const Regs: Reg[] = [
+    { reg: /<マシュマロ>([\s\S]+?)<\/マシュマロ>/g },
+    { reg: /<ツイッター>([\s\S]+?)<\/ツイッター>/g },
+    { reg: /<ニコニコ>([\s\S]+?)<\/ニコニコ>/g },
+    { reg: /<ニコタイトル>([\s\S]+?)<\/ニコタイトル>/g },
+    { reg: /<標準動画>([\s\S]+?)<\/標準動画>/g },
+    { reg: /<ボックス>([\s\S]+?)<\/ボックス>/g },
+    { reg: /<太字>([\s\S]+?)<\/太字>/g },
+    { reg: /<URL風>([\s\S]+?)<\/URL風>/g },
+    { reg: /<文字:(.+?):>([\s\S]+?)<\/文字>/g },
+    { reg: /{大きさ:(.+?):}/g },
+    { reg: /{色:(.+?):}/g },
+    { reg: /<br><\/br>/g },
+];
+
+// Regを利用してtext内から一致するデータを取り出す
+export const getMatchText = (text: string, reg: RegExp): string[] => {
+    const matchText = [...text.matchAll(reg)];
+    if (matchText.length > 0) {
+        return matchText[0];
+    }
+
+    console.log(`matchText is null:getMatchText`)
+    return [];
+}
+
+// getMatchTextを利用してデータを取り出す
+export const getMatchTexts = (text: string, reg: RegExp[]): [string, string[]] => {
+    let matchTexts: string[] = [];
+    // textが空の場合は処理を行わない
+    if (text === ""){ return [text, matchTexts];}
+    reg.forEach((regex) => {
+      const matchText = getMatchText(text, regex);
+      // matchTextが空の場合は処理を行わずに次のループへ
+        if (matchText.length <= 0 || matchText === null || matchText === undefined) {
+            console.log("matchText is null");
+            return [text, matchTexts];
+        }else{
+            matchTexts = matchTexts.concat(matchText);
+            matchText.forEach((match) => {
+            text = text.replace(match, "");
+            });
+        }
+    });
+  
+    const result: [string, string[]] = [text, matchTexts];
+    return result;
+  };
+
 export const replacements: Content[] = [
     { 
         search: `<マシュマロ>`,
