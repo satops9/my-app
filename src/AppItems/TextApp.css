@@ -183,27 +183,6 @@
   border-radius: 8px;
 }
 
-.footerH {
-  width: auto;
- }
-
-.imgbar {
-  display:inline-flex;
-  width: 40%;
-  height: 50%;
-  margin-right: 10px;
-  margin-bottom: 15px;
-}
-
-.lib {
-  display:inline-flex;
-  margin-left: 8px;
-  text-decoration: none;
-  border-radius: 8px;
-  padding: 5px;
-  text-align: center;
- }
-
   /* ここまでmain */
 
   #overlay{
@@ -311,9 +290,4 @@
       border:2px dashed rgb(92, 59, 44);
       border-radius: 8px;
      }
-
-     .imgbar {
-      width: 80%;
-      height: auto;
-    }
  }
