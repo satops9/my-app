@@ -1,0 +1,108 @@
+.main { /* 全体の設定 */
+    margin-Top: 60px;
+    padding: 10px;
+   }
+
+.overview {
+    padding: 0 20px 0 20px;
+  }
+
+  input {
+    font-size: 16pt;
+    transform: scale(0.8);
+  }
+
+  textarea {
+    font-size: 16pt;
+  }
+
+.center {
+    position: relative;
+    display: flex;
+    box-sizing: border-box;
+    width: 100%;
+  }
+  .footerH {
+    width: auto;
+   }
+  
+  .imgbar {
+    display:inline-flex;
+    width: 40%;
+    height: auto;
+    margin-right: 10px;
+    margin-bottom: 15px;
+  }
+
+  .imgbarT {
+    display:inline-flex;
+    width: 40%;
+    height: auto;
+    margin-right: 10px;
+    margin-bottom: 15px;
+  }
+
+  .imgbarH {
+    display:inline-flex;
+    width: 30%;
+    height: auto;
+    margin-right: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .lib {
+    display: block;
+    text-align: left;
+    width: auto;
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 0px;
+    box-shadow: 0px 0px 0px 0px;
+   }
+
+   .tab {
+    text-align: left;
+    width: auto;
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 0px;
+    box-shadow: 0px 0px 0px 0px;
+   }
+
+   @media screen and (max-width:480px) {
+    .center {
+        position: relative;
+        display: flex;
+        box-sizing: border-box;
+        width: 100%;
+      }
+      .footerH {
+        width: auto;
+       }
+      
+       .imgbar {
+        display:inline-flex;
+        width: 80%;
+        height: auto;
+        margin-right: 10px;
+        margin-bottom: 15px;
+      }
+    
+      .imgbarT {
+        display:inline-flex;
+        width: 70%;
+        height: auto;
+        margin-right: 10px;
+        margin-bottom: 15px;
+      }
+    
+      .imgbarH {
+        display:inline-flex;
+        width: 80%;
+        height: auto;
+        margin-right: 10px;
+        margin-bottom: 15px;
+      }
+   }

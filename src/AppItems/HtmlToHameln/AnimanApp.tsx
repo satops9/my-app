@@ -185,6 +185,8 @@ const submit = () => {
     // cookie保存
     Cookies.set("Animanbody", JSON.stringify(bodyItem));
     Cookies.set("AnimanbodyTitle", JSON.stringify(titles));
+    Cookies.set("AnimanbodyCategory", JSON.stringify(category));
+    Cookies.set("AnimanRes", JSON.stringify(res+1));
 
 	// textareaのstateをリセット
 	setTexts("");
@@ -211,6 +213,8 @@ useEffect(() => {
   // cookieから読み込み
   const cookieBody = Cookies.get("Animanbody");
   const cookieBodyTitles = Cookies.get("AnimanbodyTitles");
+  const cookieBodyCategory = Cookies.get("AnimanbodyCategory");
+  const cookieRes = Cookies.get("AnimanRes");
   if (cookieBody) {
     const item : itemBodyList[] = JSON.parse(cookieBody);
     setItemBody(item);
@@ -218,6 +222,14 @@ useEffect(() => {
   if (cookieBodyTitles) {
     const itemTitles : string = JSON.parse(cookieBodyTitles);
     setTitles(itemTitles);
+  }
+  if (cookieBodyCategory) {
+    const itemCategory : string = JSON.parse(cookieBodyCategory);
+    setCategory(itemCategory);
+  }
+  if (cookieRes) {
+    const itemRes : number = JSON.parse(cookieRes);
+    setRes(itemRes);
   }
 }, []);
     
@@ -281,6 +293,9 @@ useEffect(() => {
     setBolds("normal");
     // cookie削除
     Cookies.remove("Animanbody");
+    Cookies.remove("AnimanbodyTitle");
+    Cookies.remove("AnimanbodyCategory");
+    Cookies.remove("AnimanRes");
   };
 
   const rsetModal = () =>{

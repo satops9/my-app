@@ -7,7 +7,7 @@ import Footer from './AppItems/Footer';
 import reportWebVitals from './reportWebVitals';
 
 const Root: React.FC = () => {
-  const [selectedMenu, setSelectedMenu] = useState<string>('chat');
+  const [selectedMenu, setSelectedMenu] = useState<string>('usage');
 
   return (
     <React.StrictMode>

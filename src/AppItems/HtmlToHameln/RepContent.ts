@@ -67,7 +67,7 @@ export const replacements: Content[] = [
     { 
         search: `<マシュマロ>`,
         replace: `
-        <div class="tag_box bgcolor" style="box-sizing:border-box;white-space:normal;width:100%;max-width:100%;padding:0.5em;border:1px solid #fe8196;background-color:#fe8196;color:#202020;overflow:auto;">
+        <div class="tag_box bgcolor" style="box-sizing:border-box;white-space:normal;width:30em;max-width:100%;padding:0.5em;border:1px solid #fe8196;background-color:#fe8196;color:#202020;overflow:auto;">
         <p></p>
         <p id="1"></p>
         <div class="tag_box bgcolor" style="box-sizing:border-box;white-space:normal;width:100%;max-width:100%;padding:0.2em;background-color:#ffffff;color:#202020;overflow:auto;">
@@ -89,7 +89,7 @@ export const replacements: Content[] = [
     },
     { 
         search: `<ツイッター>`,
-        replace: `<div class="tag_box bgcolor" style="box-sizing:border-box;white-space:normal;width:100%;max-width:100%;background-color:#ffffff;color:#202020;border:2px solid #1e90ff;padding:0.5em;overflow:auto;">
+        replace: `<div class="tag_box bgcolor" style="box-sizing:border-box;white-space:normal;width:30em;max-width:100%;background-color:#ffffff;color:#202020;border:2px solid #1e90ff;padding:0.5em;overflow:auto;">
         <p></p>
         <p id="148"></p>
         <p></p>
@@ -482,7 +482,7 @@ export const replacements: Content[] = [
 export const H_replacements: Content[] = [
     {
         search: `<マシュマロ>`,
-        replace: `《box:w100%,p0.5,bo#fe8196,bg#fe8196》
+        replace: `《box:w30,p0.5,bo#fe8196,bg#fe8196》
 《box:w100%,p0.2,bg#ffffff》
 
 《center》`
@@ -497,7 +497,7 @@ export const H_replacements: Content[] = [
     },
     { 
         search: `<ツイッター>`,
-        replace: `《box:w100%,bg#ffffff,bo#1e90ff,p0.5》
+        replace: `《box:w30,bg#ffffff,bo#1e90ff,p0.5》
 《table:#ffffff》
 [[《box:w10%,bg#1e90ff,p1.5》《/box》`
     },

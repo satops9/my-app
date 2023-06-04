@@ -1,11 +1,12 @@
 /* eslint-disable react/jsx-pascal-case */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import 'react-tabs/style/react-tabs.css';
 import "./TextApp.css";
 import "./ChatApp.css";
 import ChatBbs from "./ChatApp";
 import ChatLine from "./HtmlToHameln/LineApp";
 import ChatAniman from "./HtmlToHameln/AnimanApp";
+import Cookies from "js-cookie";
 
 // selectItem types
 interface SelectItem {
@@ -18,12 +19,17 @@ const App: React.FC = () => {
     const [renderContent, setRenderContent] = useState<React.ReactNode>(<ChatLine />);
     const [selectItems, setSelectItems] 
     = useState<SelectItem[]>([{label: '掲示板風', value: 'bbs'}, {label: 'LINE風', value: 'line'}, {label: 'あにまん掲示板', value: 'animans'}]);
+    const [defItem, setDefItem] = useState<SelectItem[]>([{label: 'LINE風', value: 'line'}]);
 
     // selectボックスの値が変更された時の処理
     const onChanges = (e: React.ChangeEvent<HTMLSelectElement>) => {
         // selectボックスの値を取得する
         const value = e.target.value;
+        const label = e.target.selectedOptions[0].text;
+        setItems(value, label);
+    };
 
+    const setItems = (value: string, label: string) => {
         switch (value) {
             case 'bbs':
                 setRenderContent(<ChatBbs />);
@@ -38,7 +44,23 @@ const App: React.FC = () => {
                 setRenderContent(<ChatLine />);
                 break;
         }
+
+        // defItemを更新する
+        const defItem: SelectItem[] = [{label: label, value: value}];
+        setDefItem(defItem);
+        // selectItemsをcookieに保存する
+        Cookies.set('DefItem', JSON.stringify(defItem));
     };
+
+    useEffect(() => {
+        // cookieからselectItemsを取得する
+        const cookieSelectItems = Cookies.get('DefItem');
+        if (cookieSelectItems) {
+            const selectItems: SelectItem[] = JSON.parse(cookieSelectItems);
+            setDefItem(selectItems);
+            setItems(selectItems[0].value, selectItems[0].label);
+        }
+    }, []);
 
     // Main
     return (
